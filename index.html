@@ -2,652 +2,70 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deutschsmart Student - Kirish va Ro'yxatdan o'tish</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --primary: #1e3a8a;
-      --primary-hover: #172554;
-      --primary-light: #eff6ff;
-      --accent: #2563eb;
-      --success: #16a34a;
-      --success-bg: #dcfce7;
-      --danger: #dc2626;
-      --danger-bg: #fee2e2;
-      --warning: #d97706;
-      --warning-bg: #fef3c7;
-      --gray-50: #f8fafc;
-      --gray-100: #f1f5f9;
-      --gray-200: #e2e8f0;
-      --gray-300: #cbd5e1;
-      --gray-600: #475569;
-      --gray-700: #334155;
-      --gray-800: #1e293b;
-      --gray-900: #0f172a;
-      --white: #ffffff;
-      --radius: 10px;
-      --radius-sm: 6px;
-      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
-    body { background-color: var(--gray-50); color: var(--gray-800); min-height: 100vh; }
-
-    .header {
-      background: var(--white);
-      border-bottom: 1px solid var(--gray-200);
-      padding: 0.75rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--primary); }
-    .brand-badge {
-      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-      color: var(--white);
-      font-weight: 800;
-      font-size: 1.25rem;
-      padding: 0.4rem 0.75rem;
-      border-radius: var(--radius-sm);
-    }
-    .brand-text h1 { font-size: 1.15rem; font-weight: 700; color: var(--gray-900); }
-    .brand-text span { font-size: 0.75rem; color: var(--gray-600); display: block; }
-
-    .auth-wrapper {
-      min-height: calc(100vh - 65px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
-    }
-
-    .auth-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-lg);
-      width: 100%;
-      max-width: 440px;
-      padding: 2.25rem;
-      border: 1px solid var(--gray-200);
-    }
-    .auth-header { text-align: center; margin-bottom: 1.5rem; }
-    .auth-header h2 { font-size: 1.5rem; font-weight: 700; color: var(--gray-900); }
-    .auth-header p { color: var(--gray-600); font-size: 0.88rem; margin-top: 0.25rem; }
-
-    .form-group { margin-bottom: 1.1rem; }
-    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.35rem; }
-    .form-control {
-      width: 100%;
-      padding: 0.65rem 0.85rem;
-      font-size: 0.95rem;
-      border: 1px solid var(--gray-300);
-      border-radius: var(--radius-sm);
-      outline: none;
-      transition: all 0.2s;
-    }
-    .form-control:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
-    .form-text { font-size: 0.75rem; color: var(--gray-600); margin-top: 0.25rem; }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.65rem 1.2rem;
-      font-size: 0.92rem;
-      font-weight: 600;
-      border-radius: var(--radius-sm);
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-    }
-    .btn-primary { background: var(--primary); color: var(--white); }
-    .btn-primary:hover { background: var(--primary-hover); }
-    .btn-success { background: var(--success); color: var(--white); }
-    .btn-secondary { background: var(--white); border-color: var(--gray-300); color: var(--gray-700); }
-    .btn-sm { padding: 0.35rem 0.65rem; font-size: 0.8rem; }
-
-    .alert {
-      padding: 0.75rem 1rem;
-      border-radius: var(--radius-sm);
-      font-size: 0.85rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .alert-danger { background: var(--danger-bg); color: var(--danger); border: 1px solid #fca5a5; }
-
-    /* Modal */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      z-index: 100;
-      backdrop-filter: blur(4px);
-    }
-    .modal-content {
-      background: var(--white);
-      border-radius: var(--radius);
-      width: 100%;
-      max-width: 520px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: var(--shadow-lg);
-      padding: 1.75rem;
-    }
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--gray-200);
-      padding-bottom: 0.75rem;
-    }
-    .close-btn { background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-600); }
-
-    .role-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
-    .role-card {
-      border: 2px solid var(--gray-200);
-      border-radius: var(--radius-sm);
-      padding: 0.85rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .role-card.active { border-color: var(--primary); background: var(--primary-light); }
-    .role-card .icon { font-size: 1.75rem; margin-bottom: 0.3rem; }
-
-    .checkbox-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 0.5rem;
-      background: var(--gray-50);
-      padding: 0.75rem;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--gray-200);
-      max-height: 150px;
-      overflow-y: auto;
-    }
-    .checkbox-label { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; cursor: pointer; }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kirish — Deutschsmart Student</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-
-  <header class="header">
-    <div class="brand">
-      <div class="brand-badge">DS</div>
-      <div class="brand-text">
-        <h1>deutschsmart_student</h1>
-        <span>Elektron kundalik va davomat platformasi</span>
-      </div>
-    </div>
-    <a href="https://t.me/deutschsmart_student_bot" target="_blank" class="btn btn-secondary btn-sm">
-      ✈️ Telegram Bot (@deutschsmart_student_bot)
-    </a>
-  </header>
-
+<body class="auth-body">
   <main class="auth-wrapper">
-    <div class="auth-card">
-      <div class="auth-header">
-        <h2>Tizimga kirish</h2>
-        <p>Telefon raqam, email va parolingizni kiriting</p>
+    <section class="auth-card">
+      <div class="auth-brand"><span class="brand-badge">DS</span><span>Deutschsmart Student</span></div>
+      <h1 id="title">Kirish</h1>
+      <p class="auth-sub" id="sub">Telefon raqam va parol bilan kiring</p>
+
+      <div class="seg" role="tablist">
+        <button type="button" id="tabLogin" class="active" data-mode="login">Kirish</button>
+        <button type="button" id="tabReg" data-mode="register">Ro'yxatdan o'tish</button>
       </div>
 
-      <div id="alertBox" class="alert alert-danger" style="display: none;"></div>
+      <div id="alertBox" class="alert alert-danger" style="display:none" role="alert"></div>
 
-      <form id="authForm">
+      <form id="authForm" novalidate>
         <div class="form-group">
-          <label for="phoneInput">Telefon raqam</label>
-          <input type="tel" id="phoneInput" class="form-control" placeholder="+998 90 123 45 67" required>
-          <div class="form-text">Ustoz, o'quvchi yoki ota-onaning raqami</div>
+          <label for="phone">Telefon raqam</label>
+          <div class="phone-field">
+            <span class="phone-prefix">+998</span>
+            <input id="phone" class="form-control" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="90 123 45 67" maxlength="12">
+          </div>
         </div>
-
         <div class="form-group">
-          <label for="emailInput">Elektron pochta (Email)</label>
-          <input type="email" id="emailInput" class="form-control" placeholder="user@deutschsmart.uz" required>
+          <label for="password">Parol</label>
+          <input id="password" class="form-control" type="password" autocomplete="current-password" placeholder="Kamida 6 ta belgi">
         </div>
 
-        <div class="form-group">
-          <label for="passwordInput">Parol</label>
-          <input type="password" id="passwordInput" class="form-control" placeholder="Parolingizni kiriting" required>
-        </div>
+        <div id="regFields" style="display:none">
+          <div class="role-options">
+            <button type="button" class="role-card active" id="roleT" data-role="teacher"><div class="icon">👨‍🏫</div><h4>Ustoz</h4></button>
+            <button type="button" class="role-card" id="roleS" data-role="student"><div class="icon">🎓</div><h4>O'quvchi / Ota-ona</h4></button>
+          </div>
+          <div class="form-group"><label for="fullName">F.I.SH</label><input id="fullName" class="form-control" autocomplete="name"></div>
+          <div class="form-group"><label for="birth">Tug'ilgan sana</label><input id="birth" class="form-control" inputmode="numeric" placeholder="KK.OO.YYYY" maxlength="10"></div>
 
-        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
-          Kirish / Davom etish
-        </button>
-      </form>
-
-      <!-- Demo tezkor tugmalar -->
-      <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--gray-200); text-align: center;">
-        <span style="font-size: 0.78rem; color: var(--gray-600); display: block; margin-bottom: 0.5rem;">
-          ⚡️ Sinov uchun mavjud akkauntlar:
-        </span>
-        <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap;">
-          <button type="button" class="btn btn-secondary btn-sm" onclick="setDemo('teacher')">Ustoz (Shokir A.)</button>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="setDemo('student')">O'quvchi (Jasur)</button>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="setDemo('parent')">Ota-ona (Rustam K.)</button>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- Yangi foydalanuvchi Anketasi Modali -->
-  <div id="registerModal" class="modal-backdrop" style="display: none;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3>Yangi hisob ochish</h3>
-        <button type="button" class="close-btn" onclick="closeModal()">&times;</button>
-      </div>
-
-      <p style="font-size: 0.85rem; color: var(--gray-600); margin-bottom: 1rem;">
-        Telefon yoki emailingiz topilmadi. Tizim sizni <strong>yangi foydalanuvchi</strong> sifatida qabul qiladi. Rolingizni tanlang:
-      </p>
-
-      <div class="role-options">
-        <div class="role-card active" id="roleCardTeacher" onclick="selectRole('teacher')">
-          <div class="icon">👨‍🏫</div>
-          <strong>Ustoz</strong>
-          <p style="font-size: 0.75rem; color: var(--gray-600);">Dars beruvchi o'qituvchi</p>
-        </div>
-        <div class="role-card" id="roleCardStudent" onclick="selectRole('student')">
-          <div class="icon">🎓</div>
-          <strong>O'quvchi / Ota-ona</strong>
-          <p style="font-size: 0.75rem; color: var(--gray-600);">Kundalik ko'rish uchun</p>
-        </div>
-      </div>
-
-      <div id="modalAlert" class="alert alert-danger" style="display: none;"></div>
-
-      <!-- 1. Yangi Ustoz Anketasi -->
-      <form id="teacherForm">
-        <div class="form-group">
-          <label>Ustoz F.I.SH</label>
-          <input type="text" id="tFullName" class="form-control" placeholder="Aliyev Vali G'aniyevich" required>
-        </div>
-
-        <div class="form-group">
-          <label>O'tadigan fanlaringiz (Bir nechta tanlash mumkin)</label>
-          <div class="checkbox-grid">
-            <label class="checkbox-label"><input type="checkbox" name="tSubjects" value="Nemis tili A1" checked> Nemis tili A1</label>
-            <label class="checkbox-label"><input type="checkbox" name="tSubjects" value="Nemis tili A2"> Nemis tili A2</label>
-            <label class="checkbox-label"><input type="checkbox" name="tSubjects" value="Nemis tili B1"> Nemis tili B1</label>
-            <label class="checkbox-label"><input type="checkbox" name="tSubjects" value="Grammatika"> Grammatika</label>
-            <label class="checkbox-label"><input type="checkbox" name="tSubjects" value="So'zlashuv (Sprechen)"> So'zlashuv</label>
-            <label class="checkbox-label"><input type="checkbox" name="tSubjects" value="Goethe Zertifikat"> Goethe Zertifikat</label>
+          <div id="tFields">
+            <div class="form-group"><label>O'tadigan fanlar</label>
+              <div class="checkbox-grid">
+                <label class="checkbox-label"><input type="checkbox" name="subj" value="Nemis tili A1"> Nemis tili A1</label>
+                <label class="checkbox-label"><input type="checkbox" name="subj" value="Nemis tili A2"> Nemis tili A2</label>
+                <label class="checkbox-label"><input type="checkbox" name="subj" value="Grammatika"> Grammatika</label>
+                <label class="checkbox-label"><input type="checkbox" name="subj" value="Goethe tayyorlov"> Goethe tayyorlov</label>
+              </div>
+            </div>
+          </div>
+          <div id="sFields" style="display:none">
+            <div class="form-group"><label for="parentName">Ota-onasi F.I.SH</label><input id="parentName" class="form-control"></div>
+            <div class="form-group"><label for="parentPhone">Ota-ona telefoni</label>
+              <div class="phone-field"><span class="phone-prefix">+998</span><input id="parentPhone" class="form-control" type="tel" inputmode="numeric" placeholder="90 123 45 67" maxlength="12"></div>
+            </div>
+            <div class="form-group"><label for="klass">Sinf</label><input id="klass" class="form-control" placeholder="Masalan: 7-G" maxlength="6"></div>
           </div>
         </div>
 
-        <div class="form-group">
-          <label>Tug'ilgan sana (Yosh yili)</label>
-          <input type="text" id="tBirthDate" class="form-control" placeholder="15.05.1994 (DD.MM.YYYY)" required>
-          <div class="form-text" style="color: var(--danger);">* Minimal 20 yosh bo'lishi shart!</div>
-        </div>
-
-        <button type="submit" class="btn btn-primary" style="width: 100%;">
-          Ustoz sifatida saqlash va Adminga yuborish
-        </button>
+        <button id="submitBtn" type="submit" class="btn btn-primary btn-block">Kirish</button>
       </form>
-
-      <!-- 2. Yangi O'quvchi Anketasi -->
-      <form id="studentForm" style="display: none;">
-        <div class="form-group">
-          <label>O'quvchi F.I.SH</label>
-          <input type="text" id="sFullName" class="form-control" placeholder="Karimov Jasur Rustam o'g'li" required>
-        </div>
-
-        <div class="form-group">
-          <label>Tug'ilgan sana / Yoshi</label>
-          <input type="text" id="sBirthDate" class="form-control" placeholder="10.04.2012 (yoki: 14 yosh)" required>
-        </div>
-
-        <div class="form-group">
-          <label>Ota-onasi F.I.SH</label>
-          <input type="text" id="sParentName" class="form-control" placeholder="Karimov Rustam" required>
-        </div>
-
-        <div class="form-group">
-          <label>Ota-onaning telefon raqami</label>
-          <input type="tel" id="sParentPhone" class="form-control" placeholder="+998 97 999 88 77" required>
-          <div class="form-text">Ota-ona va o'quvchi turli raqamdan kirib bitta oynani ko'ra oladilar</div>
-        </div>
-
-        <div class="form-group">
-          <label>Sinifi (Masalan: 7-G)</label>
-          <input type="text" id="sClass" class="form-control" placeholder="7-G" required>
-          <div class="form-text">Ma'lumot Admin sinflar arxivi va Ustoz arxiviga tushadi</div>
-        </div>
-
-        <button type="submit" class="btn btn-success" style="width: 100%;">
-          O'tish (Maktab ma'lumotlariga o'tish) ➔
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    // --- DB va Xotira Boshqaruvi (Firebase / LocalStorage) ---
-    const DB_KEY = 'deutschsmart_data';
-
-    function getDB() {
-      let data = localStorage.getItem(DB_KEY);
-      if (!data) {
-        data = {
-          users: [
-            { phone: '+998901234567', email: 'ustoz@deutschsmart.uz', password: '123', role: 'teacher', fullName: 'Shokir Aliyev', isActive: true },
-            { phone: '+998931112233', email: 'student@deutschsmart.uz', password: '123', role: 'student', studentId: 's1', isActive: true },
-            { phone: '+998979998877', email: 'otaona@deutschsmart.uz', password: '123', role: 'parent', studentId: 's1', isActive: true }
-          ],
-          students: [
-            {
-              id: 's1',
-              fullName: 'Jasur Karimov',
-              birthDate: '10.04.2012',
-              parentName: 'Karimov Rustam',
-              parentPhone: '+998979998877',
-              studentPhone: '+998931112233',
-              gradeClass: '7-G',
-              isActive: true
-            },
-            {
-              id: 's2',
-              fullName: 'Madina Rahimova',
-              birthDate: '22.08.2012',
-              parentName: 'Rahimova Nargiza',
-              parentPhone: '+998991230001',
-              studentPhone: '+998991230002',
-              gradeClass: '7-G',
-              isActive: true
-            }
-          ],
-          teachers: [
-            { id: 't1', fullName: 'Shokir Aliyev', phone: '+998901234567', subjects: ['Nemis tili A1', 'Grammatika'], classes: ['7-G'] }
-          ],
-          attendance: {
-            's1_2026-09-10': 'present',
-            's1_2026-09-12': 'sick',
-            's1_2026-09-15': 'present',
-            's2_2026-09-15': 'absent'
-          },
-          grades: {
-            's1_Nemis tili A1_2026-09-10': { score: 5, comment: 'Sehr gut! A\'lo faollik' },
-            's1_Nemis tili A1_2026-09-15': { score: 4, comment: 'Yaxshi javob' }
-          },
-          classArchives: {
-            '7-G': ['s1', 's2']
-          }
-        };
-        localStorage.setItem(DB_KEY, JSON.stringify(data));
-      } else {
-        data = JSON.parse(data);
-      }
-      return data;
-    }
-
-    function saveDB(data) {
-      localStorage.setItem(DB_KEY, JSON.stringify(data));
-    }
-
-    let inputCache = { phone: '', email: '', password: '', role: 'teacher' };
-
-    // --- FORM LOGIKASI ---
-    const authForm = document.getElementById('authForm');
-    const alertBox = document.getElementById('alertBox');
-    const registerModal = document.getElementById('registerModal');
-    const modalAlert = document.getElementById('modalAlert');
-
-    authForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alertBox.style.display = 'none';
-
-      const phone = document.getElementById('phoneInput').value.trim().replace(/\s+/g, '');
-      const email = document.getElementById('emailInput').value.trim().toLowerCase();
-      const password = document.getElementById('passwordInput').value;
-
-      inputCache = { phone, email, password, role: 'teacher' };
-
-      const db = getDB();
-
-      // Qidiruv: Telefon YOKI Email bormi?
-      const existingUser = db.users.find(u => 
-        (u.phone && u.phone.replace(/\s+/g, '') === phone) || 
-        (u.email && u.email.toLowerCase() === email)
-      );
-
-      if (existingUser) {
-        // 1. Mavjud hisob topildi -> Parol tekshiriladi
-        if (existingUser.password !== password) {
-          alertBox.textContent = "❌ Parol noto'g'ri kiritildi!";
-          alertBox.style.display = 'flex';
-          return;
-        }
-
-        if (existingUser.isActive === false) {
-          alertBox.textContent = "⛔️ Ushbu hisob admin tomonidan chiqarib yuborilgan (bloklangan)!";
-          alertBox.style.display = 'flex';
-          return;
-        }
-
-        // Sessiya
-        localStorage.setItem('auth_session', JSON.stringify(existingUser));
-
-        // Rolga qarab yo'naltirish
-        if (existingUser.role === 'teacher') {
-          window.location.href = 'teacher.html';
-        } else {
-          // O'quvchi va ota-ona 1 ta oynaga tushadi
-          window.location.href = 'student.html';
-        }
-      } else {
-        // 2. Umuman mos kelmadi -> Yangi hisob
-        registerModal.style.display = 'flex';
-      }
-    });
-
-    // --- Yangi Ustoz saqlash ---
-    document.getElementById('teacherForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      modalAlert.style.display = 'none';
-
-      const fullName = document.getElementById('tFullName').value.trim();
-      const birthDate = document.getElementById('tBirthDate').value.trim();
-      const checkedBoxes = document.querySelectorAll('input[name="tSubjects"]:checked');
-      const subjects = Array.from(checkedBoxes).map(c => c.value);
-
-      // Yosh validatsiyasi (>= 20 yosh)
-      const parts = birthDate.split('.');
-      if (parts.length !== 3) {
-        modalAlert.textContent = "Tug'ilgan sana formati DD.MM.YYYY bo'lishi kerak!";
-        modalAlert.style.display = 'flex';
-        return;
-      }
-      const bDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
-      const today = new Date();
-      let age = today.getFullYear() - bDate.getFullYear();
-      const m = today.getMonth() - bDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < bDate.getDate())) age--;
-
-      if (age < 20 || isNaN(age)) {
-        modalAlert.textContent = `Ustoz yoshi kamida 20 yosh bo'lishi shart! Sizning yoshingiz: ${isNaN(age) ? 'xato' : age}`;
-        modalAlert.style.display = 'flex';
-        return;
-      }
-
-      if (subjects.length === 0) {
-        modalAlert.textContent = "Kamida bitta fan tanlang!";
-        modalAlert.style.display = 'flex';
-        return;
-      }
-
-      const db = getDB();
-      const newTeacherUser = {
-        phone: inputCache.phone,
-        email: inputCache.email,
-        password: inputCache.password,
-        role: 'teacher',
-        fullName: fullName,
-        isActive: true
-      };
-      const newTeacherProfile = {
-        id: 't_' + Date.now(),
-        fullName,
-        phone: inputCache.phone,
-        birthDate,
-        subjects,
-        classes: ['7-G']
-      };
-
-      db.users.push(newTeacherUser);
-      db.teachers.push(newTeacherProfile);
-      saveDB(db);
-
-      localStorage.setItem('auth_session', JSON.stringify(newTeacherUser));
-      alert("Ustoz ro'yxatdan o'tdi va ma'lumotlar Adminga yuborildi!");
-      window.location.href = 'teacher.html';
-    });
-
-    // --- Yangi O'quvchi saqlash ---
-    document.getElementById('studentForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      modalAlert.style.display = 'none';
-
-      const fullName = document.getElementById('sFullName').value.trim();
-      const birthDate = document.getElementById('sBirthDate').value.trim();
-      const parentName = document.getElementById('sParentName').value.trim();
-      const parentPhone = document.getElementById('sParentPhone').value.trim();
-      const gradeClass = document.getElementById('sClass').value.trim().toUpperCase();
-
-      const db = getDB();
-      const studentId = 's_' + Date.now();
-
-      // 1. O'quvchi user hisobi
-      const studentUser = {
-        phone: inputCache.phone,
-        email: inputCache.email,
-        password: inputCache.password,
-        role: 'student',
-        studentId: studentId,
-        isActive: true
-      };
-
-      // 2. Ota-ona user hisobi (agar ota-ona telefoni boshqa bo'lsa)
-      const parentUser = {
-        phone: parentPhone,
-        email: 'p_' + inputCache.email,
-        password: inputCache.password,
-        role: 'parent',
-        studentId: studentId, // bir xil studentId!
-        isActive: true
-      };
-
-      // 3. O'quvchi profili
-      const studentProfile = {
-        id: studentId,
-        fullName,
-        birthDate,
-        parentName,
-        parentPhone,
-        studentPhone: inputCache.phone,
-        gradeClass,
-        isActive: true
-      };
-
-      db.users.push(studentUser);
-      if (parentPhone !== inputCache.phone) db.users.push(parentUser);
-      db.students.push(studentProfile);
-
-      // Admin sinflar arxivida saqlash
-      if (!db.classArchives[gradeClass]) db.classArchives[gradeClass] = [];
-      db.classArchives[gradeClass].push(studentId);
-
-      // Ustoz arxiviga qo'shish
-      db.teachers.forEach(t => {
-        if (!t.classes.includes(gradeClass)) t.classes.push(gradeClass);
-      });
-
-      saveDB(db);
-
-      // Firebase Firestore bilan avtomatik sinxronizatsiya (Telegram Bot ko'rishi uchun)
-      try {
-        fetch(`https://firestore.googleapis.com/v1/projects/deutschsmart-72eb9/databases/(default)/documents/students/${studentId}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fields: {
-              fullName: { stringValue: fullName },
-              gradeClass: { stringValue: gradeClass },
-              birthDate: { stringValue: birthDate },
-              parentName: { stringValue: parentName },
-              parentPhone: { stringValue: parentPhone || '' },
-              studentPhone: { stringValue: inputCache.phone },
-              attendancePresent: { integerValue: 12 },
-              attendanceAbsent: { integerValue: 0 },
-              attendanceSick: { integerValue: 0 },
-              gradesSummary: { stringValue: "• Nemis tili A1: 5, 5 (O'rtacha: 5.0)" }
-            }
-          })
-        }).catch(e => console.log('Firestore sync notice:', e));
-      } catch(e) {}
-
-      localStorage.setItem('auth_session', JSON.stringify(studentUser));
-      alert(`O'quvchi qabul qilindi!\n1) Admin sinflar arxiviga tushdi.\n2) ${gradeClass} ustozi arxiviga tushdi.\n3) Telegram botga ham ulandi!`);
-      window.location.href = 'student.html';
-    });
-
-    // Helper functions
-    function selectRole(role) {
-      const cardT = document.getElementById('roleCardTeacher');
-      const cardS = document.getElementById('roleCardStudent');
-      const formT = document.getElementById('teacherForm');
-      const formS = document.getElementById('studentForm');
-
-      if (role === 'teacher') {
-        cardT.classList.add('active');
-        cardS.classList.remove('active');
-        formT.style.display = 'block';
-        formS.style.display = 'none';
-      } else {
-        cardS.classList.add('active');
-        cardT.classList.remove('active');
-        formS.style.display = 'block';
-        formT.style.display = 'none';
-      }
-    }
-
-    function closeModal() {
-      document.getElementById('registerModal').style.display = 'none';
-    }
-
-    function setDemo(role) {
-      const p = document.getElementById('phoneInput');
-      const e = document.getElementById('emailInput');
-      const pass = document.getElementById('passwordInput');
-      if (role === 'teacher') {
-        p.value = '+998901234567';
-        e.value = 'ustoz@deutschsmart.uz';
-        pass.value = '123';
-      } else if (role === 'student') {
-        p.value = '+998931112233';
-        e.value = 'student@deutschsmart.uz';
-        pass.value = '123';
-      } else if (role === 'parent') {
-        p.value = '+998979998877';
-        e.value = 'otaona@deutschsmart.uz';
-        pass.value = '123';
-      }
-    }
-  </script>
+    </section>
+  </main>
+  <script type="module" src="js/auth.js"></script>
 </body>
 </html>
