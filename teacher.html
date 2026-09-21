@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ustoz Jurnali (Kundalik.com) - Deutschsmart Student</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-hover: #172554;
+      --primary-light: #eff6ff;
+      --accent: #2563eb;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --warning: #d97706;
+      --warning-bg: #fef3c7;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --gray-900: #0f172a;
+      --white: #ffffff;
+      --radius: 10px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
+    body { background-color: var(--gray-50); color: var(--gray-800); min-height: 100vh; }
+
+    .header {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--primary); }
+    .brand-badge {
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      color: var(--white);
+      font-weight: 800;
+      font-size: 1.25rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+    }
+    .brand-text h1 { font-size: 1.15rem; font-weight: 700; color: var(--gray-900); }
+    .brand-text span { font-size: 0.75rem; color: var(--gray-600); display: block; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--primary); color: var(--white); }
+    .btn-secondary { background: var(--white); border-color: var(--gray-300); color: var(--gray-700); }
+    .btn-secondary:hover { background: var(--gray-100); }
+
+    .container { max-width: 1350px; margin: 0 auto; padding: 1.5rem; }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--gray-200);
+      margin-bottom: 1.25rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--gray-600);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+    }
+    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* Toolbar */
+    .toolbar {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .filters { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .filter-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--gray-700); }
+    .form-select {
+      padding: 0.45rem 0.75rem;
+      font-size: 0.88rem;
+      border: 1px solid var(--gray-300);
+      border-radius: 6px;
+      outline: none;
+    }
+
+    /* Kundalik Table */
+    .journal-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .journal-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fafbfc;
+    }
+    .journal-header h3 { font-size: 1.1rem; color: var(--gray-900); }
+
+    .table-responsive { width: 100%; overflow-x: auto; }
+    .kundalik-table { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.85rem; }
+    .kundalik-table th, .kundalik-table td { border: 1px solid var(--gray-200); padding: 0.55rem 0.5rem; }
+    .kundalik-table th { background: #f8fafc; font-weight: 600; color: var(--gray-700); }
+    
+    .th-student { text-align: left; min-width: 190px; position: sticky; left: 0; background: #f8fafc; z-index: 10; }
+    .td-student { text-align: left; font-weight: 600; position: sticky; left: 0; background: var(--white); z-index: 10; border-right: 2px solid var(--gray-300); }
+
+    .date-header { min-width: 70px; }
+    .date-num { font-size: 0.95rem; font-weight: 700; color: var(--primary); }
+
+    .cell-box { display: flex; align-items: center; justify-content: center; gap: 4px; }
+    
+    /* Attendance Badges */
+    .att-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s;
+    }
+    .att-badge:hover { transform: scale(1.15); }
+    .att-present { background: var(--success-bg); color: var(--success); border: 1px solid var(--success); }
+    .att-absent { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger); }
+    .att-sick { background: var(--warning-bg); color: var(--warning); border: 1px solid var(--warning); }
+    .att-none { background: var(--gray-100); color: var(--gray-500); border: 1px dashed var(--gray-300); }
+
+    /* Grade Badge */
+    .grade-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 26px;
+      height: 26px;
+      padding: 0 4px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      background: #e0e7ff;
+      color: var(--primary);
+      border: 1px solid #c7d2fe;
+      cursor: pointer;
+    }
+    .grade-box.empty { background: transparent; border: 1px dashed var(--gray-300); color: var(--gray-400); }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 100;
+      backdrop-filter: blur(4px);
+    }
+    .modal-content {
+      background: var(--white);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 420px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .close-btn { background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-600); }
+    
+    .score-buttons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin: 0.5rem 0 1rem; }
+    .score-btn {
+      padding: 0.6rem;
+      border: 1px solid var(--gray-300);
+      background: var(--white);
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .score-btn.active { background: var(--primary); color: var(--white); border-color: var(--primary); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-badge">DS</div>
+      <div class="brand-text">
+        <h1>deutschsmart_student</h1>
+        <span>Ustoz Elektron Jurnali (Kundalik.com)</span>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <span style="font-size: 0.85rem; font-weight: 600;">👨‍🏫 <span id="teacherNameDisplay">Shokir Aliyev</span></span>
+      <button class="btn btn-secondary" onclick="logout()">Chiqish</button>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" id="tabJournalBtn" onclick="switchTab('journal')">
+        📖 Kundalik Jurnali (Davomat & Baho)
+      </button>
+      <button class="tab-btn" id="tabArchiveBtn" onclick="switchTab('archive')">
+        🗂 O'z Sinflarim Arxivi
+      </button>
+    </div>
+
+    <!-- 1. JURNAL BO'LIMI -->
+    <div id="tabJournalSection">
+      <div class="toolbar">
+        <div class="filters">
+          <div class="filter-item">
+            <label>Sinf:</label>
+            <select id="classFilter" class="form-select" onchange="changeFilters()">
+              <option value="7-G" selected>7-G sinf</option>
+              <option value="8-A">8-A sinf</option>
+            </select>
+          </div>
+
+          <div class="filter-item">
+            <label>Fan:</label>
+            <select id="subjectFilter" class="form-select" onchange="changeFilters()">
+              <option value="Nemis tili A1" selected>Nemis tili A1</option>
+              <option value="Nemis tili A2">Nemis tili A2</option>
+              <option value="Grammatika">Grammatika</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; font-size: 0.82rem; color: var(--gray-700);">
+          <span>🟢 <b>B</b> - Bor</span>
+          <span>🔴 <b>Y</b> - Yo'q</span>
+          <span>🟡 <b>K</b> - Kasal</span>
+        </div>
+      </div>
+
+      <div class="journal-card">
+        <div class="journal-header">
+          <div>
+            <h3 id="tableTitleDisplay">7-G Sinf — Nemis tili A1</h3>
+            <p style="font-size: 0.8rem; color: var(--gray-600); margin-top: 2px;">
+              Davomatni o'zgartirish uchun katakni bosing. Baho qo'yish uchun baho katagini bosing.
+            </p>
+          </div>
+          <span style="font-size: 0.8rem; background: #e0f2fe; color: #0284c7; padding: 4px 10px; border-radius: 20px; font-weight: 600;">
+            Kundalik.com Tizimi
+          </span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="kundalik-table">
+            <thead>
+              <tr id="tableHeaderRow">
+                <!-- JS generatsiya qiladi -->
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- JS generatsiya qiladi -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. O'Z SINFLARIM ARXIVI BO'LIMI -->
+    <div id="tabArchiveSection" style="display: none;">
+      <div class="journal-card" style="padding: 1.5rem;">
+        <h3 style="margin-bottom: 0.5rem;">Ustozning Sinflar Arxivi</h3>
+        <p style="font-size: 0.85rem; color: var(--gray-600); margin-bottom: 1.25rem;">
+          Yangi ro'yxatdan o'tgan o'quvchilar va ularning ota-onasi ma'lumotlari avtomatik shu yerda aks etadi:
+        </p>
+
+        <div id="archiveContent">
+          <!-- JS to'ldiradi -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Baho qo'yish Modali -->
+  <div id="gradeModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="mTitle">Baho qo'yish</h3>
+        <button type="button" class="close-btn" onclick="closeGradeModal()">&times;</button>
+      </div>
+
+      <div style="background: var(--gray-50); padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem;">
+        <div><strong>O'quvchi:</strong> <span id="mStudentName">-</span></div>
+        <div><strong>Sana:</strong> <span id="mDate">-</span></div>
+        <div><strong>Fan:</strong> <span id="mSubject">-</span></div>
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <label style="font-size: 0.85rem; font-weight: 600;">Bahoni tanlang (1-5):</label>
+        <div class="score-buttons">
+          <button type="button" class="score-btn active" onclick="setScore(5)">5</button>
+          <button type="button" class="score-btn" onclick="setScore(4)">4</button>
+          <button type="button" class="score-btn" onclick="setScore(3)">3</button>
+          <button type="button" class="score-btn" onclick="setScore(2)">2</button>
+          <button type="button" class="score-btn" onclick="setScore(1)">1</button>
+        </div>
+        <input type="hidden" id="selectedScore" value="5">
+      </div>
+
+      <div style="margin-bottom: 1.25rem;">
+        <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Darsdagi izoh / Uy vazifasi:</label>
+        <textarea id="gradeComment" style="width: 100%; padding: 0.5rem; border: 1px solid var(--gray-300); border-radius: 6px; font-size: 0.85rem;" rows="2" placeholder="Sehr gut! Faol ishtirok"></textarea>
+      </div>
+
+      <button type="button" class="btn btn-primary" style="width: 100%;" onclick="saveGrade()">
+        Bahoni saqlash
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const DB_KEY = 'deutschsmart_data';
+    function getDB() {
+      const d = localStorage.getItem(DB_KEY);
+      return d ? JSON.parse(d) : null;
+    }
+    function saveDB(d) {
+      localStorage.setItem(DB_KEY, JSON.stringify(d));
+    }
+
+    let dates = ['2026-09-01', '2026-09-04', '2026-09-08', '2026-09-11', '2026-09-15', '2026-09-18', '2026-09-22', '2026-09-25'];
+    let currentClass = '7-G';
+    let currentSubject = 'Nemis tili A1';
+
+    let activeModalStudentId = '';
+    let activeModalDate = '';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const sessionStr = localStorage.getItem('auth_session');
+      if (sessionStr) {
+        const session = JSON.parse(sessionStr);
+        if (session.fullName) document.getElementById('teacherNameDisplay').textContent = session.fullName;
+      }
+      renderJournal();
+      renderArchive();
+    });
+
+    function changeFilters() {
+      currentClass = document.getElementById('classFilter').value;
+      currentSubject = document.getElementById('subjectFilter').value;
+      renderJournal();
+    }
+
+    function renderJournal() {
+      document.getElementById('tableTitleDisplay').textContent = `${currentClass} Sinf — ${currentSubject}`;
+      const db = getDB();
+      if (!db) return;
+
+      const headerRow = document.getElementById('tableHeaderRow');
+      let hHtml = `
+        <th style="width: 40px;">№</th>
+        <th class="th-student">O'quvchi F.I.SH</th>
+      `;
+      dates.forEach(d => {
+        const day = d.split('-')[2];
+        const m = d.split('-')[1];
+        hHtml += `
+          <th class="date-header">
+            <div class="date-num">${day}</div>
+            <div style="font-size: 0.68rem; color: var(--gray-600);">${m}-oy</div>
+          </th>
+        `;
+      });
+      headerRow.innerHTML = hHtml;
+
+      // O'quvchilar
+      const students = (db.students || []).filter(s => s.gradeClass === currentClass && s.isActive !== false);
+      const tbody = document.getElementById('tableBody');
+
+      if (students.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="${dates.length + 2}" style="padding: 2rem; color: var(--gray-600);">Ushbu sinfda hozircha o'quvchilar yo'q.</td></tr>`;
+        return;
+      }
+
+      let bHtml = '';
+      students.forEach((st, idx) => {
+        bHtml += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td class="td-student">
+              <div>${st.fullName}</div>
+              <div style="font-size: 0.72rem; color: var(--gray-600); font-weight: normal;">Tel: ${st.studentPhone}</div>
+            </td>
+        `;
+
+        dates.forEach(d => {
+          const attKey = `${st.id}_${d}`;
+          const att = db.attendance ? db.attendance[attKey] : null;
+
+          const grKey = `${st.id}_${currentSubject}_${d}`;
+          const gr = db.grades ? db.grades[grKey] : null;
+
+          // Davomat badge
+          let attHtml = '';
+          if (att === 'present') {
+            attHtml = `<span class="att-badge att-present" title="Bor" onclick="cycleAtt('${st.id}', '${d}', 'present')">B</span>`;
+          } else if (att === 'absent') {
+            attHtml = `<span class="att-badge att-absent" title="Yo'q" onclick="cycleAtt('${st.id}', '${d}', 'absent')">Y</span>`;
+          } else if (att === 'sick') {
+            attHtml = `<span class="att-badge att-sick" title="Kasal" onclick="cycleAtt('${st.id}', '${d}', 'sick')">K</span>`;
+          } else {
+            attHtml = `<span class="att-badge att-none" title="Belgilash" onclick="cycleAtt('${st.id}', '${d}', 'none')">·</span>`;
+          }
+
+          // Baho box
+          let grHtml = '';
+          if (gr && gr.score) {
+            grHtml = `<span class="grade-box" title="${gr.comment || 'Baho'}" onclick="openGrade('${st.id}', '${escapeQuotes(st.fullName)}', '${d}', ${gr.score}, '${escapeQuotes(gr.comment || '')}')">${gr.score}</span>`;
+          } else {
+            grHtml = `<span class="grade-box empty" onclick="openGrade('${st.id}', '${escapeQuotes(st.fullName)}', '${d}')">+</span>`;
+          }
+
+          bHtml += `
+            <td>
+              <div class="cell-box">
+                ${attHtml}
+                ${grHtml}
+              </div>
+            </td>
+          `;
+        });
+
+        bHtml += `</tr>`;
+      });
+      tbody.innerHTML = bHtml;
+    }
+
+    function cycleAtt(studentId, date, current) {
+      let next = 'present';
+      if (current === 'present') next = 'absent';
+      else if (current === 'absent') next = 'sick';
+      else if (current === 'sick') next = null;
+
+      const db = getDB();
+      const key = `${studentId}_${date}`;
+      if (!db.attendance) db.attendance = {};
+
+      if (next) {
+        db.attendance[key] = next;
+      } else {
+        delete db.attendance[key];
+      }
+      saveDB(db);
+      renderJournal();
+    }
+
+    function openGrade(studentId, name, date, existingScore = 5, existingComment = '') {
+      activeModalStudentId = studentId;
+      activeModalDate = date;
+
+      document.getElementById('mStudentName').textContent = name;
+      document.getElementById('mDate').textContent = date;
+      document.getElementById('mSubject').textContent = currentSubject;
+      document.getElementById('gradeComment').value = existingComment;
+
+      setScore(existingScore);
+      document.getElementById('gradeModal').style.display = 'flex';
+    }
+
+    function closeGradeModal() {
+      document.getElementById('gradeModal').style.display = 'none';
+    }
+
+    function setScore(score) {
+      document.getElementById('selectedScore').value = score;
+      const btns = document.querySelectorAll('.score-btn');
+      btns.forEach(b => {
+        if (parseInt(b.textContent.trim(), 10) === score) {
+          b.classList.add('active');
+        } else {
+          b.classList.remove('active');
+        }
+      });
+    }
+
+    function saveGrade() {
+      const score = parseInt(document.getElementById('selectedScore').value, 10);
+      const comment = document.getElementById('gradeComment').value;
+
+      const db = getDB();
+      if (!db.grades) db.grades = {};
+
+      const key = `${activeModalStudentId}_${currentSubject}_${activeModalDate}`;
+      db.grades[key] = { score, comment };
+      saveDB(db);
+
+      // Firestore ga yangi bahoni sinxronizatsiya qilish (Telegram Bot uchun)
+      try {
+        const student = (db.students || []).find(s => s.id === activeModalStudentId);
+        if (student) {
+          fetch(`https://firestore.googleapis.com/v1/projects/deutschsmart-72eb9/databases/(default)/documents/students/${activeModalStudentId}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fields: {
+                fullName: { stringValue: student.fullName },
+                gradeClass: { stringValue: student.gradeClass },
+                gradesSummary: { stringValue: `• ${currentSubject}: ${score} (${comment || 'A\'lo'})` }
+              }
+            })
+          }).catch(e => {});
+        }
+      } catch(e) {}
+
+      closeGradeModal();
+      renderJournal();
+    }
+
+    function renderArchive() {
+      const db = getDB();
+      if (!db) return;
+      const container = document.getElementById('archiveContent');
+
+      const students = db.students || [];
+      const classes = ['7-G', '8-A'];
+
+      let html = '';
+      classes.forEach(cls => {
+        const clsStudents = students.filter(s => s.gradeClass === cls);
+        html += `
+          <div style="margin-bottom: 1.5rem; border: 1px solid var(--gray-200); border-radius: 8px; padding: 1rem;">
+            <h4 style="color: var(--primary); margin-bottom: 0.75rem;">🏫 ${cls} Sinf O'quvchilari (${clsStudents.length} ta)</h4>
+        `;
+
+        if (clsStudents.length === 0) {
+          html += `<p style="font-size: 0.85rem; color: var(--gray-600);">Hali hech qanday o'quvchi yozilmagan.</p>`;
+        } else {
+          clsStudents.forEach((st, idx) => {
+            html += `
+              <div style="background: var(--gray-50); border-radius: 6px; padding: 0.75rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <strong>${idx + 1}. ${st.fullName}</strong> (${st.birthDate})
+                  <div style="font-size: 0.8rem; color: var(--gray-600); margin-top: 2px;">
+                    👨‍👩‍👧 Ota-onasi: <strong>${st.parentName || 'Kiritilmagan'}</strong> | 
+                    📞 Ota-ona tel: <strong>${st.parentPhone}</strong> | 
+                    📱 O'quvchi tel: <strong>${st.studentPhone}</strong>
+                  </div>
+                </div>
+                <span style="font-size: 0.75rem; background: #dcfce7; color: #15803d; padding: 3px 8px; border-radius: 4px; font-weight: 700;">
+                  Faol
+                </span>
+              </div>
+            `;
+          });
+        }
+
+        html += `</div>`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function switchTab(tab) {
+      const jBtn = document.getElementById('tabJournalBtn');
+      const aBtn = document.getElementById('tabArchiveBtn');
+      const jSec = document.getElementById('tabJournalSection');
+      const aSec = document.getElementById('tabArchiveSection');
+
+      if (tab === 'journal') {
+        jBtn.classList.add('active');
+        aBtn.classList.remove('active');
+        jSec.style.display = 'block';
+        aSec.style.display = 'none';
+      } else {
+        aBtn.classList.add('active');
+        jBtn.classList.remove('active');
+        aSec.style.display = 'block';
+        jSec.style.display = 'none';
+        renderArchive();
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('auth_session');
+      window.location.href = 'index.html';
+    }
+
+    function escapeQuotes(str) {
+      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+  </script>
+</body>
+</html>

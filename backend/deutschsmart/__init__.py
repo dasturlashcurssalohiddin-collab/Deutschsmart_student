@@ -1,0 +1,1 @@
+# Deutschsmart Django Project

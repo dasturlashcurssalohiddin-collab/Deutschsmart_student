@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O'quvchi va Ota-ona Kundaligi - Deutschsmart Student</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇩🇪</text></svg>">
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-badge">DS</div>
+      <div class="brand-text">
+        <h1>deutschsmart_student</h1>
+        <span>O'quvchi va Ota-ona Yagona Kundaligi</span>
+      </div>
+    </div>
+    <div class="user-nav">
+      <div class="user-badge" id="studentNavBadge">
+        <span>🎓</span>
+        <span id="studentNavName">Jasur Karimov (7-G sinf)</span>
+      </div>
+      <button class="btn btn-secondary btn-sm" id="logoutBtn">Chiqish</button>
+    </div>
+  </header>
+
+  <div class="dashboard-container">
+
+    <!-- Telegram Bot Bog'lanish Banneri -->
+    <div class="tg-banner">
+      <div class="tg-content">
+        <h3>📲 Telegram Botga Ulaning!</h3>
+        <p>
+          Ustoz darsda davomat (Bor/Yo'q/Kasal) va baho qo'yganda darhol ota-onaning Telegramiga avtomatik xabar boradi.
+        </p>
+      </div>
+      <button type="button" class="btn btn-telegram" onclick="openTelegramModal()">
+        <span>✈️ Botga Ulanish</span>
+      </button>
+    </div>
+
+    <!-- O'quvchi Profili Ma'lumotlar Kartochkasi -->
+    <div style="background: var(--white); border-radius: 10px; padding: 1.25rem; border: 1px solid var(--gray-200); margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h2 id="studentFullNameDisplay" style="font-size: 1.35rem; color: var(--gray-900);">Jasur Karimov</h2>
+        <div style="display: flex; gap: 1rem; font-size: 0.85rem; color: var(--gray-600); margin-top: 0.35rem; flex-wrap: wrap;">
+          <span>🏫 Sinf: <strong id="studentClassDisplay" style="color: var(--primary);">7-G</strong></span>
+          <span>👨‍👩‍👧 Ota-onasi: <strong id="parentNameDisplay">Karimov Rustam</strong></span>
+          <span>📞 Ota-ona tel: <strong id="parentPhoneDisplay">+998979998877</strong></span>
+          <span>📱 O'quvchi tel: <strong id="studentPhoneDisplay">+998931112233</strong></span>
+        </div>
+      </div>
+      <div>
+        <span id="roleLabelBadge" style="background: #e0e7ff; color: #3730a3; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">
+          Yagona Oyna (O'quvchi / Ota-ona)
+        </span>
+      </div>
+    </div>
+
+    <!-- Davomat Statistikasi Kartochkalari -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background: #e0f2fe; color: #0284c7;">📅</div>
+        <div class="stat-info">
+          <h4>Jami Darslar</h4>
+          <div class="stat-value" id="statTotalDays">0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: var(--success-bg); color: var(--success);">🟢</div>
+        <div class="stat-info">
+          <h4>Qatnashgan (Bor)</h4>
+          <div class="stat-value" id="statPresentDays" style="color: var(--success);">0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: var(--danger-bg); color: var(--danger);">🔴</div>
+        <div class="stat-info">
+          <h4>Sababsiz (Yo'q)</h4>
+          <div class="stat-value" id="statAbsentDays" style="color: var(--danger);">0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: var(--warning-bg); color: var(--warning);">🟡</div>
+        <div class="stat-info">
+          <h4>Kasallik (Kasal)</h4>
+          <div class="stat-value" id="statSickDays" style="color: var(--warning);">0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: #f3e8ff; color: #7e22ce;">📊</div>
+        <div class="stat-info">
+          <h4>Davomat Foizi</h4>
+          <div class="stat-value" id="statRate">100%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kundalik.com Uslubidagi Baholar Jadvali -->
+    <div class="journal-card">
+      <div class="journal-header">
+        <div class="journal-title">
+          <h3>📖 Fanlar va Baholar (Kundalik.com tizimi)</h3>
+          <p>O'quvchining barcha fanlar bo'yicha olgan baholari va ustoz izohlari</p>
+        </div>
+        <span style="font-size: 0.8rem; background: var(--gray-100); color: var(--gray-700); padding: 4px 10px; border-radius: 4px;">
+          Faqat ko'rish (Read-only)
+        </span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="kundalik-table" style="text-align: left;">
+          <thead>
+            <tr>
+              <th style="width: 50px; text-align: center;">№</th>
+              <th style="min-width: 180px;">Fan nomi</th>
+              <th>Baholar (Sanalar bilan)</th>
+              <th style="width: 120px; text-align: center;">O'rtacha ball</th>
+            </tr>
+          </thead>
+          <tbody id="studentGradesTbody">
+            <!-- JS orqali to'ldiriladi -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Davomat Jurnali (Sanalar kesimida) -->
+    <div class="journal-card">
+      <div class="journal-header">
+        <div class="journal-title">
+          <h3>🗓 Darslarga Qatnashish Tarixi</h3>
+          <p>Kunlar bo'yicha davomat holati</p>
+        </div>
+      </div>
+
+      <div class="table-responsive" style="padding: 1rem;">
+        <div id="attendanceTimeline" style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+          <!-- JS orqali to'ldiriladi -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Telegram Bot Ulanish Modali -->
+  <div id="tgModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-content" style="max-width: 460px; text-align: center;">
+      <div class="modal-header">
+        <h3>Telegram Botga Ulanish</h3>
+        <button type="button" class="close-btn" onclick="closeTelegramModal()">&times;</button>
+      </div>
+
+      <div style="font-size: 3rem; margin-bottom: 0.75rem;">🤖</div>
+      <h4 style="margin-bottom: 0.5rem; color: var(--gray-900);">@deutschsmart_student_bot</h4>
+      <p style="font-size: 0.88rem; color: var(--gray-600); margin-bottom: 1.25rem; line-height: 1.4;">
+        Telegram bot orqali har safar farzandingizga <strong>baho qo'yilganda</strong> yoki darsda <strong>yo'q / kasal</strong> deb belgilanganda darhol telefoningizga xabar olasiz.
+      </p>
+
+      <div style="background: var(--gray-50); border: 1px dashed var(--gray-300); padding: 1rem; border-radius: 8px; margin-bottom: 1.25rem;">
+        <div style="font-size: 0.8rem; color: var(--gray-600); margin-bottom: 0.25rem;">Shaxsiy ulash havolasi:</div>
+        <strong id="tgDeepLink" style="font-size: 0.95rem; color: #0088cc;">https://t.me/deutschsmart_student_bot?start=student_s1</strong>
+      </div>
+
+      <a id="tgDirectLink" href="https://t.me/deutschsmart_student_bot?start=student_s1" target="_blank" class="btn btn-telegram" style="width: 100%;">
+        Telegramda Botni Ochish ✈️
+      </a>
+    </div>
+  </div>
+
+  <script type="module" src="js/student.js"></script>
+</body>
+</html>

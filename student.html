@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O'quvchi va Ota-ona Kundaligi - Deutschsmart Student</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-hover: #172554;
+      --primary-light: #eff6ff;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+      --warning: #d97706;
+      --warning-bg: #fef3c7;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --gray-900: #0f172a;
+      --white: #ffffff;
+      --radius: 10px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
+    body { background-color: var(--gray-50); color: var(--gray-800); min-height: 100vh; }
+
+    .header {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--primary); }
+    .brand-badge {
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      color: var(--white);
+      font-weight: 800;
+      font-size: 1.25rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+    }
+    .brand-text h1 { font-size: 1.15rem; font-weight: 700; color: var(--gray-900); }
+    .brand-text span { font-size: 0.75rem; color: var(--gray-600); display: block; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-secondary { background: var(--white); border-color: var(--gray-300); color: var(--gray-700); }
+    .btn-secondary:hover { background: var(--gray-100); }
+    .btn-telegram { background: #0088cc; color: var(--white); }
+    .btn-telegram:hover { background: #0077b5; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+    /* Profile Banner */
+    .profile-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .profile-info h2 { font-size: 1.35rem; color: var(--gray-900); }
+    .profile-meta {
+      display: flex;
+      gap: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      margin-top: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .profile-meta span strong { color: var(--gray-800); }
+
+    .role-badge {
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .stat-info h4 { font-size: 0.78rem; text-transform: uppercase; color: var(--gray-600); font-weight: 600; }
+    .stat-info .stat-val { font-size: 1.45rem; font-weight: 700; color: var(--gray-900); }
+
+    /* Tables */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .card-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fafbfc;
+    }
+    .card-header h3 { font-size: 1.05rem; color: var(--gray-900); }
+    .card-header p { font-size: 0.8rem; color: var(--gray-600); }
+
+    .table-responsive { width: 100%; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem; }
+    th, td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--gray-200); }
+    th { background: #f8fafc; font-weight: 600; color: var(--gray-700); }
+
+    .grade-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #e0e7ff;
+      color: #1e3a8a;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin: 2px;
+    }
+    .grade-chip .chip-date { font-size: 0.7rem; color: #4338ca; font-weight: normal; }
+
+    /* Davomat badges */
+    .att-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .att-present { background: var(--success-bg); color: var(--success); }
+    .att-absent { background: var(--danger-bg); color: var(--danger); }
+    .att-sick { background: var(--warning-bg); color: var(--warning); }
+
+    /* TG Banner */
+    .tg-banner {
+      background: linear-gradient(135deg, #0088cc, #00a2ed);
+      color: var(--white);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .tg-banner h3 { font-size: 1.05rem; margin-bottom: 0.2rem; }
+    .tg-banner p { font-size: 0.85rem; opacity: 0.95; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-badge">DS</div>
+      <div class="brand-text">
+        <h1>deutschsmart_student</h1>
+        <span>O'quvchilar haqida ma'lumot (Asosiy Oyna)</span>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <span id="navRoleDisplay" class="role-badge">O'quvchi / Ota-ona</span>
+      <button class="btn btn-secondary" onclick="logout()">Chiqish</button>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Telegram Bot Banneri -->
+    <div class="tg-banner">
+      <div>
+        <h3>📲 Telegram Bot orqali natijalarni bilish</h3>
+        <p>Botda telefon/email va parol kiritilganda bola haqida davomat va baholar darhol chiqadi.</p>
+      </div>
+      <a href="https://t.me/deutschsmart_student_bot" target="_blank" class="btn btn-telegram" style="background: white; color: #0088cc;">
+        Telegram Botni Ochish (@deutschsmart_student_bot) ✈️
+      </a>
+    </div>
+
+    <!-- O'quvchi Ma'lumotlari Kartochkasi -->
+    <div class="profile-card">
+      <div class="profile-info">
+        <h2 id="stFullName">Jasur Karimov</h2>
+        <div class="profile-meta">
+          <span>🏫 Sinf: <strong id="stClass" style="color: var(--primary);">7-G</strong></span>
+          <span>👨‍👩‍👧 Ota-onasi: <strong id="stParentName">Karimov Rustam</strong></span>
+          <span>📞 Ota-ona tel: <strong id="stParentPhone">+998 97 999 88 77</strong></span>
+          <span>📱 O'quvchi tel: <strong id="stPhone">+998 93 111 22 33</strong></span>
+        </div>
+      </div>
+      <div>
+        <span class="role-badge" id="viewModeBadge">Yagona oyna rejimi</span>
+      </div>
+    </div>
+
+    <!-- Davomat Ko'rsatkichlari -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon" style="background: #e0f2fe; color: #0284c7;">📅</div>
+        <div class="stat-info">
+          <h4>Jami Darslar</h4>
+          <div class="stat-val" id="statTotal">0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: var(--success-bg); color: var(--success);">🟢</div>
+        <div class="stat-info">
+          <h4>Qatnashgan (Bor)</h4>
+          <div class="stat-val" id="statPresent" style="color: var(--success);">0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: var(--danger-bg); color: var(--danger);">🔴</div>
+        <div class="stat-info">
+          <h4>Dars qoldirgan (Yo'q)</h4>
+          <div class="stat-val" id="statAbsent" style="color: var(--danger);">0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: var(--warning-bg); color: var(--warning);">🟡</div>
+        <div class="stat-info">
+          <h4>Kasallik (Kasal)</h4>
+          <div class="stat-val" id="statSick" style="color: var(--warning);">0</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background: #f3e8ff; color: #7e22ce;">📊</div>
+        <div class="stat-info">
+          <h4>Davomat Foizi</h4>
+          <div class="stat-val" id="statRate">100%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kundalik.com Baholar Jadvali -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h3>📖 Kundalik: Fanlar va Baholar</h3>
+          <p>O'qituvchilar tomonidan qo'yilgan baholar va dars izohlari</p>
+        </div>
+        <span style="font-size: 0.8rem; background: var(--gray-100); padding: 4px 8px; border-radius: 4px; font-weight: 600;">
+          Faqat ko'rish (Read-only)
+        </span>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 50px; text-align: center;">№</th>
+              <th style="width: 220px;">Fan nomi</th>
+              <th>Baholar (Sanasi bilan)</th>
+              <th style="width: 120px; text-align: center;">O'rtacha ball</th>
+            </tr>
+          </thead>
+          <tbody id="gradesTableBody">
+            <!-- JS to'ldiradi -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Davomat Tarixi -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h3>🗓 Kunlik Davomat Tarixi</h3>
+          <p>Har bir sana bo'yicha o'quvchining darsdagi ishtiroki</p>
+        </div>
+      </div>
+      <div style="padding: 1.25rem;">
+        <div id="attList" style="display: flex; flex-wrap: wrap; gap: 0.65rem;">
+          <!-- JS to'ldiradi -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const DB_KEY = 'deutschsmart_data';
+
+    function getDB() {
+      const d = localStorage.getItem(DB_KEY);
+      return d ? JSON.parse(d) : null;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const sessionStr = localStorage.getItem('auth_session');
+      const db = getDB();
+      if (!db) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      let studentId = 's1';
+      let role = 'student';
+
+      if (sessionStr) {
+        const session = JSON.parse(sessionStr);
+        role = session.role;
+        if (session.studentId) studentId = session.studentId;
+      }
+
+      // Rol ko'rsatkichi
+      const roleText = role === 'parent' ? '👨‍👩‍👧 Ota-ona nazorati' : '🎓 O\'quvchi shaxsiy oynasi';
+      document.getElementById('navRoleDisplay').textContent = roleText;
+      document.getElementById('viewModeBadge').textContent = role === 'parent' ? 'Ota-ona oynasi' : 'O\'quvchi oynasi';
+
+      // O'quvchi ma'lumotlarini yuklash
+      const student = db.students.find(s => s.id === studentId) || db.students[0];
+      if (!student) return;
+
+      document.getElementById('stFullName').textContent = student.fullName;
+      document.getElementById('stClass').textContent = student.gradeClass;
+      document.getElementById('stParentName').textContent = student.parentName || 'Kiritilmagan';
+      document.getElementById('stParentPhone').textContent = student.parentPhone || '-';
+      document.getElementById('stPhone').textContent = student.studentPhone || '-';
+
+      // Davomat hisoblash
+      let presentCount = 0;
+      let absentCount = 0;
+      let sickCount = 0;
+      const attHistory = [];
+
+      for (const [key, status] of Object.entries(db.attendance || {})) {
+        if (key.startsWith(`${student.id}_`)) {
+          const date = key.split('_')[1];
+          attHistory.push({ date, status });
+          if (status === 'present') presentCount++;
+          if (status === 'absent') absentCount++;
+          if (status === 'sick') sickCount++;
+        }
+      }
+
+      const totalDays = presentCount + absentCount + sickCount;
+      const rate = totalDays > 0 ? Math.round((presentCount / totalDays) * 100) : 100;
+
+      document.getElementById('statTotal').textContent = totalDays;
+      document.getElementById('statPresent').textContent = presentCount;
+      document.getElementById('statAbsent').textContent = absentCount;
+      document.getElementById('statSick').textContent = sickCount;
+      document.getElementById('statRate').textContent = `${rate}%`;
+
+      // Baholarni fanlar bo'yicha guruhlash
+      const subjectGrades = {};
+      for (const [key, val] of Object.entries(db.grades || {})) {
+        if (key.startsWith(`${student.id}_`)) {
+          const parts = key.split('_');
+          const subject = parts[1];
+          const date = parts[2];
+          if (!subjectGrades[subject]) subjectGrades[subject] = [];
+          subjectGrades[subject].push({ score: val.score, comment: val.comment, date });
+        }
+      }
+
+      // Agar fan bo'lmasa, namunaviy 'Nemis tili A1'
+      if (Object.keys(subjectGrades).length === 0) {
+        subjectGrades['Nemis tili A1'] = [];
+      }
+
+      const tbody = document.getElementById('gradesTableBody');
+      let tbodyHtml = '';
+      let idx = 1;
+
+      for (const [subject, list] of Object.entries(subjectGrades)) {
+        let chips = '';
+        let sum = 0;
+
+        if (list.length === 0) {
+          chips = '<span style="color: var(--gray-400); font-style: italic;">Hali baho qo\'yilmagan</span>';
+        } else {
+          list.forEach(g => {
+            sum += g.score;
+            const shortDate = g.date.split('-').slice(1).join('.');
+            chips += `
+              <div class="grade-chip" title="${g.comment || 'Izohsiz'} (${g.date})">
+                <span>${g.score}</span>
+                <span class="chip-date">(${shortDate})</span>
+              </div>
+            `;
+          });
+        }
+
+        const avg = list.length > 0 ? (sum / list.length).toFixed(1) : '-';
+
+        tbodyHtml += `
+          <tr>
+            <td style="text-align: center; font-weight: 600;">${idx++}</td>
+            <td style="font-weight: 600; color: var(--gray-900);">${subject}</td>
+            <td>${chips}</td>
+            <td style="text-align: center; font-weight: 700; color: var(--primary); font-size: 1rem;">${avg}</td>
+          </tr>
+        `;
+      }
+      tbody.innerHTML = tbodyHtml;
+
+      // Davomat kunlik taqvimi
+      const attListEl = document.getElementById('attList');
+      if (attHistory.length === 0) {
+        attListEl.innerHTML = '<span style="color: var(--gray-600); font-size: 0.85rem;">Hozircha davomat yozuvi yo\'q</span>';
+      } else {
+        attHistory.sort((a, b) => a.date.localeCompare(b.date));
+        let listHtml = '';
+        attHistory.forEach(item => {
+          let bClass = 'att-present';
+          let bLabel = 'Bor';
+          if (item.status === 'absent') { bClass = 'att-absent'; bLabel = 'Yo\'q'; }
+          if (item.status === 'sick') { bClass = 'att-sick'; bLabel = 'Kasal'; }
+
+          listHtml += `
+            <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 6px; padding: 6px 10px; display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 0.8rem; font-weight: 600; color: var(--gray-700);">${item.date}</span>
+              <span class="att-badge ${bClass}">${bLabel}</span>
+            </div>
+          `;
+        });
+        attListEl.innerHTML = listHtml;
+      }
+    });
+
+    function logout() {
+      localStorage.removeItem('auth_session');
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

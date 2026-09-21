@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ustoz Jurnali (Kundalik.com) - Deutschsmart Student</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇩🇪</text></svg>">
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="header">
+    <div class="brand">
+      <div class="brand-badge">DS</div>
+      <div class="brand-text">
+        <h1>deutschsmart_student</h1>
+        <span>Ustoz Elektron Jurnali & Davomat</span>
+      </div>
+    </div>
+    <div class="user-nav">
+      <div class="user-badge" id="teacherInfoBadge">
+        <span>👨‍🏫</span>
+        <span id="teacherNameDisplay">Shokir Aliyev</span>
+      </div>
+      <button class="btn btn-secondary btn-sm" id="logoutBtn">Chiqish</button>
+    </div>
+  </header>
+
+  <div class="dashboard-container">
+
+    <!-- Navigation Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" id="tabJournalBtn" onclick="switchTab('journal')">
+        📖 Kundalik Jurnali (Davomat va Baholar)
+      </button>
+      <button class="tab-btn" id="tabArchiveBtn" onclick="switchTab('archive')">
+        🗂 O'z Sinflarim Arxivi
+      </button>
+    </div>
+
+    <!-- 1. TAB: KUNDALIK JURNALI -->
+    <div id="tabJournalContent">
+      <!-- Dashboard Toolbar / Filters -->
+      <div class="dashboard-toolbar">
+        <div class="toolbar-filters">
+          <div class="filter-group">
+            <label for="classSelect">Sinf:</label>
+            <select id="classSelect" class="form-control" style="width: 120px;">
+              <option value="7-G" selected>7-G sinf</option>
+              <option value="8-A">8-A sinf</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="subjectSelect">Fan:</label>
+            <select id="subjectSelect" class="form-control" style="min-width: 180px;">
+              <option value="Nemis tili A1" selected>Nemis tili A1</option>
+              <option value="Nemis tili A2">Nemis tili A2</option>
+              <option value="Grammatika">Grammatika</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="monthSelect">Oy:</label>
+            <select id="monthSelect" class="form-control" style="width: 160px;">
+              <option value="2026-09" selected>Sentyabr 2026</option>
+              <option value="2026-10">Oktyabr 2026</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.5rem; align-items: center; font-size: 0.8rem; color: var(--gray-600);">
+          <span style="display: inline-flex; align-items: center; gap: 3px;">
+            <span class="att-badge att-present" style="width: 18px; height: 18px; font-size: 0.65rem;">B</span> Bor
+          </span>
+          <span style="display: inline-flex; align-items: center; gap: 3px;">
+            <span class="att-badge att-absent" style="width: 18px; height: 18px; font-size: 0.65rem;">Y</span> Yo'q
+          </span>
+          <span style="display: inline-flex; align-items: center; gap: 3px;">
+            <span class="att-badge att-sick" style="width: 18px; height: 18px; font-size: 0.65rem;">K</span> Kasal
+          </span>
+        </div>
+      </div>
+
+      <!-- Kundalik.com Usulidagi Jurnal Jadvali -->
+      <div class="journal-card">
+        <div class="journal-header">
+          <div class="journal-title">
+            <h3 id="tableTitleDisplay">7-G Sinf — Nemis tili A1</h3>
+            <p>Sanalar bo'yicha davomat va baholar kataklarida amallarni bajaring</p>
+          </div>
+          <div>
+            <span style="font-size: 0.8rem; background: #e0f2fe; color: #0284c7; padding: 4px 10px; border-radius: 20px; font-weight: 600;">
+              Kundalik.com Tizimi
+            </span>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="kundalik-table" id="journalTable">
+            <thead id="journalThead">
+              <!-- JS orqali generatsiya qilinadi -->
+            </thead>
+            <tbody id="journalTbody">
+              <!-- JS orqali o'quvchilar ro'yxati chiqadi -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. TAB: O'Z SINFLARIM ARXIVI -->
+    <div id="tabArchiveContent" style="display: none;">
+      <div class="archive-card">
+        <div class="archive-header">
+          <div>
+            <h3>Ustozning Sinflar Arxivi</h3>
+            <p style="font-size: 0.85rem; color: var(--gray-600);">
+              Yangi ro'yxatdan o'tgan o'quvchilar va ularning ota-onalari ma'lumotlari avtomatik shu yerda aks etadi
+            </p>
+          </div>
+        </div>
+
+        <div id="classesArchiveContainer">
+          <!-- JS orqali to'ldiriladi -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Baho qo'yish Modal oynasi -->
+  <div id="gradeModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-content" style="max-width: 420px;">
+      <div class="modal-header">
+        <h3 id="gradeModalTitle">Baho qo'yish</h3>
+        <button type="button" class="close-btn" onclick="closeGradeModal()">&times;</button>
+      </div>
+
+      <form id="gradeForm">
+        <input type="hidden" id="gradeStudentId">
+        <input type="hidden" id="gradeDate">
+
+        <div style="margin-bottom: 1rem; background: var(--gray-50); padding: 0.75rem; border-radius: 6px; font-size: 0.85rem;">
+          <div><strong>O'quvchi:</strong> <span id="gradeStudentName">-</span></div>
+          <div><strong>Sana:</strong> <span id="gradeDateDisplay">-</span></div>
+          <div><strong>Fan:</strong> <span id="gradeSubjectDisplay">-</span></div>
+        </div>
+
+        <div class="form-group">
+          <label>Bahoni tanlang (1 dan 5 gacha)</label>
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin-top: 0.35rem;">
+            <button type="button" class="btn btn-secondary grade-pick-btn" onclick="selectScore(5)">5</button>
+            <button type="button" class="btn btn-secondary grade-pick-btn" onclick="selectScore(4)">4</button>
+            <button type="button" class="btn btn-secondary grade-pick-btn" onclick="selectScore(3)">3</button>
+            <button type="button" class="btn btn-secondary grade-pick-btn" onclick="selectScore(2)">2</button>
+            <button type="button" class="btn btn-secondary grade-pick-btn" onclick="selectScore(1)">1</button>
+          </div>
+          <input type="hidden" id="gradeScoreInput" value="5" required>
+        </div>
+
+        <div class="form-group">
+          <label for="gradeComment">Darsdagi izoh / Uy vazifasi</label>
+          <textarea id="gradeComment" class="form-control" rows="2" placeholder="Masalan: Sehr gut! Mavzuni a'lo darajada o'zlashtirgan."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          Saqlash va Telegramga jo'natish 📲
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="js/teacher.js"></script>
+</body>
+</html>
