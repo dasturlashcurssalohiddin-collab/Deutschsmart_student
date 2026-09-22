@@ -6,7 +6,144 @@
   <title>Kirish — Deutschsmart Student</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+:root{
+  /* Germaniya bayrog'i: qora, qizil, oltin */
+  --primary:#1a1a1a;--primary-hover:#000000;--primary-light:#f5eeda;
+  --accent:#c8102e;--accent-hover:#a50d26;--gold:#ffce00;--gold-dark:#d4a900;
+  --success:#15803d;--success-bg:#dcfce7;--danger:#c8102e;--danger-bg:#fde8e8;--warning:#a5760a;--warning-bg:#fff3d6;
+  --gray-50:#faf9f6;--gray-100:#f0eee8;--gray-200:#ddd9cf;--gray-300:#c1bbac;--gray-400:#928c7c;--gray-500:#6b6558;--gray-600:#4a453b;--gray-700:#332f28;--gray-800:#201d17;--gray-900:#121110;--white:#fff;
+  --radius:14px;--radius-sm:10px;--shadow-sm:0 1px 2px rgb(0 0 0/.08);--shadow:0 2px 10px rgb(0 0 0/.1);--shadow-lg:0 14px 34px rgb(0 0 0/.22);
+  --font-sans:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:var(--font-sans)}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--gray-50);color:var(--gray-800);line-height:1.5;min-height:100vh;min-height:100dvh}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+button,input,select,textarea{font:inherit}
+
+/* Header */
+.header{background:var(--primary);color:var(--white);padding:.7rem 1.25rem;padding-top:calc(.7rem + env(safe-area-inset-top,0px));display:flex;justify-content:space-between;align-items:center;gap:.75rem;position:sticky;top:0;z-index:50;border-bottom:3px solid var(--accent)}
+.brand{display:flex;align-items:center;gap:.7rem;min-width:0}
+.brand-badge{background:var(--gold);color:var(--gray-900);font-weight:800;font-size:1rem;padding:.35rem .6rem;border-radius:8px;flex:none}
+.brand-text h1{font-size:1rem;font-weight:800;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-text span{font-size:.72rem;color:#c9c3b4;display:block}
+.user-nav{display:flex;align-items:center;gap:.6rem;min-width:0}
+.user-badge{background:rgb(255 255 255/.1);padding:.35rem .8rem;border-radius:99px;font-size:.82rem;display:flex;align-items:center;gap:.4rem;max-width:220px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.header .btn-secondary{background:transparent;color:var(--white);border-color:rgb(255 255 255/.35)}
+.header .btn-secondary:hover{background:rgb(255 255 255/.12)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:46px;padding:.6rem 1.15rem;font-size:.94rem;font-weight:700;border-radius:var(--radius-sm);border:1px solid transparent;cursor:pointer;transition:background .15s,transform .05s;text-decoration:none}
+.btn:active{transform:scale(.98)}.btn:disabled{opacity:.6;cursor:wait}
+.btn-block{width:100%}
+.btn-primary{background:var(--accent);color:var(--white)}.btn-primary:hover{background:var(--accent-hover)}
+.btn-secondary{background:var(--white);border-color:var(--gray-300);color:var(--gray-700)}.btn-secondary:hover{background:var(--gray-100)}
+.btn-danger{background:var(--danger);color:var(--white)}.btn-success{background:var(--success);color:var(--white)}
+.btn-telegram{background:#0088cc;color:var(--white)}.btn-telegram:hover{background:#0077b5}
+.btn-sm{min-height:38px;padding:.3rem .8rem;font-size:.8rem}
+
+/* Forms */
+.form-group{margin-bottom:1.1rem}
+.form-group label{display:block;font-size:.85rem;font-weight:700;color:var(--gray-700);margin-bottom:.35rem}
+.form-control{width:100%;min-height:48px;padding:.65rem .9rem;font-size:1rem;border:1.5px solid var(--gray-300);border-radius:var(--radius-sm);background:var(--white);transition:border-color .15s,box-shadow .15s}
+.form-control:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgb(200 16 46/.15)}
+.form-text{font-size:.75rem;color:var(--gray-500);margin-top:.25rem}
+.alert{padding:.75rem 1rem;border-radius:var(--radius-sm);font-size:.88rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.alert-danger{background:var(--danger-bg);color:var(--danger);border:1px solid #f0b3ba}
+.alert-success{background:var(--success-bg);color:var(--success);border:1px solid #86efac}
+.alert-warning{background:var(--warning-bg);color:var(--warning);border:1px solid #f0d896}
+
+/* Auth */
+.auth-wrapper{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:1rem;background:var(--gray-900)}
+.auth-card{background:var(--white);border-radius:20px;box-shadow:var(--shadow-lg);width:100%;max-width:460px;padding:1.75rem;border-top:5px solid var(--gold)}
+.auth-brand{display:flex;align-items:center;gap:.6rem;font-weight:800;color:var(--gray-900);margin-bottom:1.25rem}
+.auth-card h1{font-size:1.6rem;font-weight:800;color:var(--gray-900);line-height:1.2}
+.auth-sub{color:var(--gray-500);font-size:.9rem;margin:.25rem 0 1.25rem}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--gray-100);padding:4px;border-radius:12px;margin-bottom:1.25rem}
+.seg button{border:0;background:transparent;min-height:42px;border-radius:9px;font-weight:700;color:var(--gray-600);cursor:pointer}
+.seg button.active{background:var(--gray-900);color:var(--gold)}
+.phone-field{display:flex;align-items:stretch}
+.phone-prefix{display:flex;align-items:center;padding:0 .85rem;background:var(--gray-100);border:1.5px solid var(--gray-300);border-right:0;border-radius:var(--radius-sm) 0 0 var(--radius-sm);font-weight:700;color:var(--gray-700)}
+.phone-field .form-control{border-radius:0 var(--radius-sm) var(--radius-sm) 0;letter-spacing:.03em}
+.role-options{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.1rem}
+.role-card{border:2px solid var(--gray-200);background:var(--white);border-radius:var(--radius-sm);padding:.85rem .5rem;text-align:center;cursor:pointer}
+.role-card.active{border-color:var(--accent);background:var(--primary-light)}
+.role-card .icon{font-size:1.6rem}.role-card h4{font-size:.9rem;color:var(--gray-900)}
+.checkbox-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.5rem;background:var(--gray-50);padding:.75rem;border-radius:var(--radius-sm);border:1px solid var(--gray-200)}
+.checkbox-label{display:flex;align-items:center;gap:.5rem;font-size:.88rem;min-height:38px;cursor:pointer}
+.checkbox-label input{width:18px;height:18px;accent-color:var(--accent)}
+
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;background:rgb(0 0 0/.62);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:100}
+.modal-content{background:var(--white);border-radius:var(--radius);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);padding:1.5rem}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--gray-200)}
+.modal-header h3{font-size:1.15rem}
+.close-btn{background:transparent;border:0;font-size:1.8rem;cursor:pointer;color:var(--gray-600);width:44px;height:44px}
+
+/* Dashboard */
+.dashboard-container{max-width:1200px;margin:0 auto;padding:1.25rem}
+.dashboard-toolbar{background:var(--white);padding:1rem 1.25rem;border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid var(--gray-200);display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
+.toolbar-filters{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.filter-group{display:flex;align-items:center;gap:.4rem}
+.filter-group label{font-size:.85rem;font-weight:700;color:var(--gray-700)}
+.journal-card,.archive-card{background:var(--white);border-radius:var(--radius);border:1px solid var(--gray-200);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:1.5rem}
+.archive-card{padding:1.1rem;overflow:visible}
+.journal-header,.archive-header{padding:1rem 1.25rem;border-bottom:1px solid var(--gray-200);display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap}
+.journal-title h3,.archive-header h3{font-size:1.05rem;color:var(--gray-900)}
+.journal-title p{font-size:.8rem;color:var(--gray-500)}
+.table-responsive{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.kundalik-table{width:100%;border-collapse:collapse;text-align:center;font-size:.85rem}
+.kundalik-table th,.kundalik-table td{border:1px solid var(--gray-200);padding:.55rem .45rem;vertical-align:middle}
+.kundalik-table th{background:var(--gray-50);color:var(--gray-700);font-weight:700}
+.kundalik-table th.th-student,.kundalik-table td.td-student{text-align:left;position:sticky;left:0;z-index:5;min-width:150px;background:var(--gray-50)}
+.kundalik-table td.td-student{background:var(--white);font-weight:700;border-right:2px solid var(--gray-300)}
+.date-header{min-width:78px;font-size:.78rem}.date-header .date-num{font-size:.95rem;font-weight:800;color:var(--accent)}
+.cell-content{display:flex;flex-direction:column;gap:.25rem;align-items:center}.cell-actions{display:flex;gap:.3rem}
+.att-badge{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;font-size:.8rem;font-weight:800;cursor:pointer}
+.att-present{background:var(--success-bg);color:var(--success);border:1px solid var(--success)}
+.att-absent{background:var(--danger-bg);color:var(--danger);border:1px solid var(--danger)}
+.att-sick{background:var(--warning-bg);color:var(--warning);border:1px solid var(--warning)}
+.att-none{background:var(--gray-100);color:var(--gray-500);border:1px dashed var(--gray-300)}
+.grade-box{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 5px;border-radius:8px;font-weight:800;background:var(--primary-light);color:var(--gray-900);border:1px solid var(--gold-dark);cursor:pointer}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.85rem;margin-bottom:1.25rem}
+.stat-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:.85rem}
+.stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex:none}
+.stat-info h4{font-size:.75rem;color:var(--gray-500);font-weight:700}.stat-info .stat-value{font-size:1.5rem;font-weight:800;color:var(--gray-900)}
+.tabs{display:flex;gap:.25rem;border-bottom:2px solid var(--gray-200);margin-bottom:1.25rem;overflow-x:auto}
+.tab-btn{background:transparent;border:0;padding:.75rem 1rem;min-height:46px;font-weight:700;font-size:.92rem;color:var(--gray-500);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
+.tab-btn.active{color:var(--gray-900);border-bottom-color:var(--accent)}
+.student-list-item{display:flex;justify-content:space-between;align-items:center;gap:.75rem;padding:.75rem;flex-wrap:wrap}
+.student-meta{font-size:.8rem;color:var(--gray-600)}
+.tg-banner{background:linear-gradient(135deg,#0088cc,#0a9be0);color:var(--white);padding:1.1rem 1.25rem;border-radius:var(--radius);margin-bottom:1.25rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.tg-content h3{font-size:1.05rem;margin-bottom:.2rem}.tg-content p{font-size:.85rem;opacity:.92}
+
+/* Planshet (481-1024px) */
+@media (min-width:481px) and (max-width:1024px){
+  .dashboard-container{padding:1.15rem}
+  .stats-grid{grid-template-columns:repeat(3,1fr)}
+  .auth-card{max-width:520px;padding:2.25rem}
+}
+
+/* Telefon (0-480px) */
+@media (max-width:480px){
+  .dashboard-container{padding:.85rem}
+  .header{padding-left:.85rem;padding-right:.85rem}
+  .brand-text span,.user-badge{display:none}
+  .dashboard-toolbar{flex-direction:column;align-items:stretch}
+  .toolbar-filters{flex-direction:column;align-items:stretch}
+  .filter-group{justify-content:space-between}.filter-group .form-control{width:65%!important}
+  .tg-banner{flex-direction:column;text-align:center}.tg-banner .btn{width:100%}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .stat-card{flex-direction:column;align-items:flex-start;gap:.5rem}
+  .modal-backdrop{align-items:flex-end;padding:0}
+  .modal-content{max-width:none;border-radius:20px 20px 0 0;padding:1.25rem;padding-bottom:calc(1.25rem + env(safe-area-inset-bottom,0px))}
+  .student-list-item{flex-direction:column;align-items:flex-start}
+  .role-options{grid-template-columns:1fr}
+  .auth-card{padding:1.35rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+  </style>
 </head>
 <body class="auth-body">
   <main class="auth-wrapper">
@@ -66,6 +203,136 @@
       </form>
     </section>
   </main>
-  <script type="module" src="js/auth.js"></script>
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+// Firebase Console -> Project settings -> Your apps -> Web app -> "firebaseConfig" dan nusxa oling
+const firebaseConfig = {
+  apiKey: "BU_YERGA_APIKEY",
+  authDomain: "deutschsmart-72eb9.firebaseapp.com",
+  projectId: "deutschsmart-72eb9",
+  appId: "BU_YERGA_APPID"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const $ = (id) => document.getElementById(id);
+
+let mode = 'login', role = 'teacher';
+
+// "901234567" -> "90 123 45 67"
+function fmtPhone(v) {
+  const d = v.replace(/\D/g, '').slice(0, 9);
+  return [d.slice(0, 2), d.slice(2, 5), d.slice(5, 7), d.slice(7, 9)].filter(Boolean).join(' ');
+}
+const digits = (v) => v.replace(/\D/g, '');
+function fmtDate(v) {
+  const d = digits(v).slice(0, 8);
+  return [d.slice(0, 2), d.slice(2, 4), d.slice(4, 8)].filter(Boolean).join('.');
+}
+['phone', 'parentPhone'].forEach(id => $(id).addEventListener('input', e => e.target.value = fmtPhone(e.target.value)));
+$('birth').addEventListener('input', e => e.target.value = fmtDate(e.target.value));
+
+function showError(msg) { const b = $('alertBox'); b.textContent = msg; b.style.display = 'flex'; }
+function clearError() { $('alertBox').style.display = 'none'; }
+
+function setMode(m) {
+  mode = m; clearError();
+  const reg = m === 'register';
+  $('tabLogin').classList.toggle('active', !reg);
+  $('tabReg').classList.toggle('active', reg);
+  $('regFields').style.display = reg ? 'block' : 'none';
+  $('title').textContent = reg ? "Ro'yxatdan o'tish" : 'Kirish';
+  $('sub').textContent = reg ? "Yangi hisob yarating" : 'Telefon raqam va parol bilan kiring';
+  $('submitBtn').textContent = reg ? "Ro'yxatdan o'tish" : 'Kirish';
+  $('password').autocomplete = reg ? 'new-password' : 'current-password';
+}
+function setRole(r) {
+  role = r;
+  $('roleT').classList.toggle('active', r === 'teacher');
+  $('roleS').classList.toggle('active', r === 'student');
+  $('tFields').style.display = r === 'teacher' ? 'block' : 'none';
+  $('sFields').style.display = r === 'student' ? 'block' : 'none';
+}
+document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+document.querySelectorAll('[data-role]').forEach(b => b.addEventListener('click', () => setRole(b.dataset.role)));
+
+const emailOf = (ph9) => `998${ph9}@deutschsmart.uz`; // telefon -> Firebase login
+
+function ageOf(ddmmyyyy) {
+  const [d, m, y] = ddmmyyyy.split('.').map(Number);
+  const b = new Date(y, m - 1, d);
+  if (!d || !m || !y || b.getMonth() !== m - 1) return NaN;
+  const t = new Date();
+  let age = t.getFullYear() - y;
+  if (t.getMonth() < m - 1 || (t.getMonth() === m - 1 && t.getDate() < d)) age--;
+  return age;
+}
+
+function errText(e) {
+  switch (e.code) {
+    case 'auth/email-already-in-use': return "Bu raqam allaqachon ro'yxatdan o'tgan. \"Kirish\" bo'limidan kiring.";
+    case 'auth/invalid-credential':
+    case 'auth/wrong-password':
+    case 'auth/user-not-found': return "Telefon raqam yoki parol noto'g'ri.";
+    case 'auth/weak-password': return "Parol kamida 6 ta belgidan iborat bo'lsin.";
+    case 'auth/too-many-requests': return "Juda ko'p urinish. Birozdan keyin qayta urinib ko'ring.";
+    case 'auth/network-request-failed': return "Internet aloqasi yo'q.";
+    default: return "Xatolik: " + (e.code || e.message);
+  }
+}
+
+function goDashboard(uid, profile) {
+  const user = { id: uid, phone: profile.phone, role: profile.role, isActive: true,
+    studentId: profile.role === 'teacher' ? undefined : uid, teacherId: profile.role === 'teacher' ? uid : undefined };
+  localStorage.setItem('current_user', JSON.stringify(user));
+  location.href = profile.role === 'teacher' ? 'teacher-dashboard.html' : 'student-dashboard.html';
+}
+
+$('authForm').addEventListener('submit', async (e) => {
+  e.preventDefault(); clearError();
+  const ph = digits($('phone').value), pw = $('password').value;
+  if (ph.length !== 9) return showError("Telefon raqamni to'liq kiriting: 90 123 45 67");
+  if (pw.length < 6) return showError("Parol kamida 6 ta belgidan iborat bo'lsin.");
+
+  const btn = $('submitBtn'); btn.disabled = true;
+  try {
+    if (mode === 'login') {
+      const cred = await signInWithEmailAndPassword(auth, emailOf(ph), pw);
+      const snap = await getDoc(doc(db, 'users', cred.user.uid));
+      if (!snap.exists()) { await signOut(auth); return showError("Profil topilmadi. Qaytadan ro'yxatdan o'ting."); }
+      const p = snap.data();
+      if (p.isActive === false) { await signOut(auth); return showError("Bu hisob admin tomonidan bloklangan."); }
+      return goDashboard(cred.user.uid, p);
+    }
+
+    // Ro'yxatdan o'tish
+    const fullName = $('fullName').value.trim(), birth = $('birth').value;
+    if (fullName.length < 5) return showError("F.I.SH ni to'liq kiriting.");
+    if (isNaN(ageOf(birth))) return showError("Tug'ilgan sanani KK.OO.YYYY ko'rinishida kiriting.");
+    const profile = { role, fullName, birthDate: birth, phone: '+998' + ph, isActive: true, createdAt: serverTimestamp() };
+
+    if (role === 'teacher') {
+      const subjects = [...document.querySelectorAll('input[name=subj]:checked')].map(c => c.value);
+      if (ageOf(birth) < 20) return showError("Ustoz kamida 20 yoshda bo'lishi kerak.");
+      if (!subjects.length) return showError("Kamida bitta fan tanlang.");
+      Object.assign(profile, { subjects, isApproved: false });
+    } else {
+      const pph = digits($('parentPhone').value), parentName = $('parentName').value.trim(), klass = $('klass').value.trim().toUpperCase();
+      if (!parentName || !klass) return showError("Ota-ona ismi va sinfni kiriting.");
+      if (pph.length !== 9) return showError("Ota-ona telefonini to'liq kiriting.");
+      Object.assign(profile, { parentName, parentPhone: '+998' + pph, gradeClass: klass });
+    }
+    const cred = await createUserWithEmailAndPassword(auth, emailOf(ph), pw);
+    await setDoc(doc(db, 'users', cred.user.uid), profile);
+    goDashboard(cred.user.uid, { ...profile });
+  } catch (err) {
+    showError(errText(err));
+  } finally { btn.disabled = false; }
+});
+
+  </script>
 </body>
 </html>
