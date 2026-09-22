@@ -1,4 +1,53 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/bot.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "backend/deutschsmart/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.9"
+      }
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/bot(.*)",
+      "dest": "api/bot.py"
+    },
+    {
+      "src": "/admin(.*)",
+      "dest": "backend/deutschsmart/wsgi.py"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "backend/deutschsmart/wsgi.py"
+    },
+    {
+      "src": "/static/(.*)",
+      "dest": "backend/staticfiles/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "deutschsmart.settings",
+    "TELEGRAM_BOT_TOKEN": "8842438171:AAHEzdaxD5HmITPhsdO1DFzTNrVlzg8nhq4",
+    "ADMIN_CHAT_ID": "6283517295",
+    "FIREBASE_PROJECT_ID": "deutschsmart-72eb9"
+  }
+}
+ o'rniga {
   "cleanUrls": false,
   "headers": [
     {
@@ -6,4 +55,4 @@
       "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
     }
   ]
-}
+} qo'yaymi
