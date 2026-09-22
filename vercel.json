@@ -47,12 +47,3 @@
     "FIREBASE_PROJECT_ID": "deutschsmart-72eb9"
   }
 }
- o'rniga {
-  "cleanUrls": false,
-  "headers": [
-    {
-      "source": "/(.*)\\.(css|js)",
-      "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
-    }
-  ]
-} 
