@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin panel — Deutschsmart Student</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#1a1a1a;--primary-hover:#000;--primary-light:#f5eeda;
+  --accent:#c8102e;--accent-hover:#a50d26;--gold:#ffce00;--gold-dark:#d4a900;
+  --success:#15803d;--success-bg:#dcfce7;--danger:#c8102e;--danger-bg:#fde8e8;--warning:#a5760a;--warning-bg:#fff3d6;
+  --gray-50:#faf9f6;--gray-100:#f0eee8;--gray-200:#ddd9cf;--gray-300:#c1bbac;--gray-400:#928c7c;--gray-500:#6b6558;--gray-600:#4a453b;--gray-700:#332f28;--gray-800:#201d17;--gray-900:#121110;--white:#fff;
+  --radius:14px;--radius-sm:10px;--shadow-sm:0 1px 2px rgb(0 0 0/.08);--shadow:0 2px 10px rgb(0 0 0/.1);--shadow-lg:0 14px 34px rgb(0 0 0/.22);
+  --font-sans:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:var(--font-sans)}
+body{background:var(--gray-50);color:var(--gray-800);min-height:100vh;min-height:100dvh}
+button,input,select{font:inherit}
+.header{background:var(--primary);color:var(--white);padding:.7rem 1.25rem;padding-top:calc(.7rem + env(safe-area-inset-top,0px));display:flex;justify-content:space-between;align-items:center;gap:.75rem;position:sticky;top:0;z-index:50;border-bottom:3px solid var(--accent)}
+.brand{display:flex;align-items:center;gap:.7rem}
+.brand-badge{background:var(--gold);color:var(--gray-900);font-weight:800;padding:.35rem .6rem;border-radius:8px}
+.brand-text h1{font-size:1rem;font-weight:800}
+.brand-text span{font-size:.72rem;color:#c9c3b4;display:block}
+.user-badge{background:rgb(255 255 255/.1);padding:.35rem .8rem;border-radius:99px;font-size:.82rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:42px;padding:.55rem 1rem;font-weight:700;font-size:.9rem;border-radius:var(--radius-sm);border:1px solid transparent;cursor:pointer;background:var(--accent);color:#fff}
+.btn:hover{background:var(--accent-hover)}
+.btn-outline{background:transparent;color:#fff;border-color:rgb(255 255 255/.4)}
+.btn-outline:hover{background:rgb(255 255 255/.12)}
+.btn-sm{min-height:34px;padding:.3rem .7rem;font-size:.8rem}
+.wrap{max-width:1100px;margin:0 auto;padding:1.25rem}
+.crumbs{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:1rem;font-size:.85rem;color:var(--gray-600)}
+.crumbs button{background:none;border:none;color:var(--accent);font-weight:700;cursor:pointer;padding:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.85rem}
+.card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm);cursor:pointer;text-align:center;transition:transform .1s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent)}
+.card .num{font-size:1.6rem;font-weight:800;color:var(--accent)}
+.card .lbl{font-size:.8rem;color:var(--gray-500);margin-top:.2rem}
+.list-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:1rem}
+.list-row{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.1rem;border-bottom:1px solid var(--gray-100);gap:.75rem;flex-wrap:wrap}
+.list-row:last-child{border-bottom:none}
+.list-row h4{font-size:.95rem}
+.list-row .meta{font-size:.78rem;color:var(--gray-500)}
+select,input{padding:.55rem .7rem;border:1.5px solid var(--gray-300);border-radius:var(--radius-sm);min-height:40px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.85rem;margin-bottom:1.25rem}
+.stat{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm);text-align:center}
+.stat .v{font-size:1.7rem;font-weight:800;color:var(--gray-900)}
+.stat .l{font-size:.75rem;color:var(--gray-500);margin-top:.2rem}
+.grade-chip{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;padding:0 6px;border-radius:8px;font-weight:800;background:var(--primary-light);border:1px solid var(--gold-dark)}
+.modal-bg{position:fixed;inset:0;background:rgb(0 0 0/.6);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:100}
+.modal{background:#fff;border-radius:var(--radius);max-width:420px;width:100%;padding:1.5rem}
+.modal h3{margin-bottom:1rem}
+.modal label{display:block;font-size:.85rem;font-weight:700;margin-bottom:.3rem}
+.score-picks{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin-bottom:1rem}
+.score-picks button{padding:.6rem;border:1.5px solid var(--gray-300);border-radius:8px;background:#fff;font-weight:800;cursor:pointer}
+.score-picks button.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.empty{color:var(--gray-500);font-size:.88rem;padding:1.5rem;text-align:center}
+@media(max-width:480px){.wrap{padding:.85rem}.brand-text span,.user-badge{display:none}}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
+th,td{padding:.7rem .9rem;text-align:left;border-bottom:1px solid var(--gray-100);font-size:.87rem}
+th{background:var(--gray-100);font-weight:700}
+.badge{padding:3px 10px;border-radius:20px;font-size:.75rem;font-weight:700}
+.active{background:var(--success-bg);color:var(--success)}
+.blocked{background:var(--danger-bg);color:var(--danger)}
+.pending{background:var(--warning-bg);color:var(--warning)}
+.ok{background:var(--success);color:#fff;border:none;padding:.4rem .7rem;border-radius:6px;cursor:pointer;font-size:.8rem}
+.danger{background:var(--danger);color:#fff;border:none;padding:.4rem .7rem;border-radius:6px;cursor:pointer;font-size:.8rem}
+.login-wrap{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:1rem;background:var(--gray-900)}
+.login-card{background:#fff;border-radius:20px;max-width:380px;width:100%;padding:1.75rem;box-shadow:var(--shadow-lg)}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.85rem;font-weight:700;margin-bottom:.3rem}
+.form-control{width:100%;min-height:46px;padding:.6rem .85rem;border:1.5px solid var(--gray-300);border-radius:10px}
+.alert{background:var(--danger-bg);color:var(--danger);padding:.6rem 1rem;border-radius:8px;font-size:.85rem;margin-bottom:1rem;display:none}
+</style>
+</head>
+<body>
+
+<div id="loginScreen" class="login-wrap">
+  <div class="login-card">
+    <h2 style="margin-bottom:.3rem">Admin panel</h2>
+    <p style="color:var(--gray-500);font-size:.88rem;margin-bottom:1.25rem">Faqat admin huquqiga ega hisoblar kira oladi</p>
+    <div id="loginError" class="alert"></div>
+    <form id="loginForm">
+      <div class="form-group"><label for="adminEmail">Email</label><input id="adminEmail" type="email" class="form-control" required></div>
+      <div class="form-group"><label for="adminPassword">Parol</label><input id="adminPassword" type="password" class="form-control" required></div>
+      <button type="submit" class="btn" style="width:100%">Kirish</button>
+    </form>
+  </div>
+</div>
+
+<div id="adminScreen" style="display:none">
+  <header class="header">
+    <div class="brand"><span class="brand-badge">DS</span><div class="brand-text"><h1>deutschsmart_student</h1><span>Admin panel</span></div></div>
+    <div style="display:flex;align-items:center;gap:.6rem">
+      <span class="user-badge" id="adminEmailLabel"></span>
+      <button class="btn btn-outline btn-sm" id="logoutBtn">Chiqish</button>
+    </div>
+  </header>
+  <div class="wrap">
+    <div class="crumbs" style="gap:.75rem">
+      <select id="roleFilter"><option value="">Barcha rollar</option><option value="teacher">Ustozlar</option><option value="student">O'quvchi/Ota-ona</option></select>
+      <select id="classFilter"><option value="">Barcha sinflar</option></select>
+    </div>
+    <table>
+      <thead><tr><th>F.I.SH</th><th>Rol</th><th>Sinf / Fanlar</th><th>Telefon</th><th>Holati</th><th>Amal</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, updateDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDRK-fkNzy-WLozoxrMePrNMVvmC98Xmpw",
+  authDomain: "deutschsmart-72eb9.firebaseapp.com",
+  projectId: "deutschsmart-72eb9",
+  appId: "1:768670952689:web:960e8c311bc04b97828d50"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const $ = id => document.getElementById(id);
+const esc = s => String(s||'').replace(/</g,'&lt;');
+
+let allUsers = [];
+
+function showError(msg){ const b=$('loginError'); b.textContent=msg; b.style.display='block'; }
+
+$('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  $('loginError').style.display='none';
+  const email = $('adminEmail').value.trim(), pw = $('adminPassword').value;
+  try {
+    await signInWithEmailAndPassword(auth, email, pw);
+  } catch (err) {
+    showError("Email yoki parol noto'g'ri.");
+  }
+});
+
+$('logoutBtn').addEventListener('click', () => signOut(auth));
+
+function renderTable() {
+  const roleF = $('roleFilter').value, clsF = $('classFilter').value;
+  const rows = allUsers.filter(u =>
+    (!roleF || u.role === roleF) && (!clsF || u.gradeClass === clsF)
+  );
+  if (!rows.length) { $('tbody').innerHTML = '<tr><td colspan="6" class="empty">Hech kim topilmadi.</td></tr>'; return; }
+  $('tbody').innerHTML = rows.map(u => {
+    let statusHtml, actionHtml;
+    if (u.isActive === false) {
+      statusHtml = '<span class="badge blocked">Bloklangan</span>';
+      actionHtml = `<button class="ok" onclick="window.__toggle('${u.uid}', true)">Qayta faollashtirish</button>`;
+    } else if (u.role === 'teacher' && u.isApproved === false) {
+      statusHtml = '<span class="badge pending">Tasdiq kutmoqda</span>';
+      actionHtml = `<button class="ok" onclick="window.__approve('${u.uid}')">Tasdiqlash</button>
+                    <button class="danger" onclick="window.__toggle('${u.uid}', false)">Bloklash</button>`;
+    } else {
+      statusHtml = '<span class="badge active">Faol</span>';
+      actionHtml = `<button class="danger" onclick="window.__toggle('${u.uid}', false)">Bloklash</button>`;
+    }
+    return `<tr>
+      <td>${esc(u.fullName)}</td>
+      <td>${u.role === 'teacher' ? 'Ustoz' : "O'quvchi"}</td>
+      <td>${u.role === 'teacher' ? esc((u.subjects||[]).join(', ')) : esc(u.gradeClass)}</td>
+      <td>${esc(u.phone)}</td>
+      <td>${statusHtml}</td>
+      <td style="display:flex;gap:.4rem;flex-wrap:wrap">${actionHtml}</td>
+    </tr>`;
+  }).join('');
+}
+
+window.__toggle = async (uid, makeActive) => {
+  await updateDoc(doc(db, 'users', uid), { isActive: makeActive });
+  const u = allUsers.find(x => x.uid === uid); if (u) u.isActive = makeActive;
+  renderTable();
+};
+window.__approve = async (uid) => {
+  await updateDoc(doc(db, 'users', uid), { isApproved: true });
+  const u = allUsers.find(x => x.uid === uid); if (u) u.isApproved = true;
+  renderTable();
+};
+
+$('roleFilter').addEventListener('change', renderTable);
+$('classFilter').addEventListener('change', renderTable);
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    $('loginScreen').style.display = 'flex';
+    $('adminScreen').style.display = 'none';
+    return;
+  }
+  // Faqat 'admins' to'plamida ro'yxatdan o'tgan hisoblarga ruxsat
+  const adminSnap = await getDoc(doc(db, 'admins', user.uid));
+  if (!adminSnap.exists()) {
+    showError("Bu hisobda admin huquqi yo'q.");
+    await signOut(auth);
+    return;
+  }
+
+  $('loginScreen').style.display = 'none';
+  $('adminScreen').style.display = 'block';
+  $('adminEmailLabel').textContent = user.email;
+
+  const snap = await getDocs(collection(db, 'users'));
+  allUsers = [];
+  const classes = new Set();
+  snap.forEach(d => {
+    const data = { uid: d.id, ...d.data() };
+    allUsers.push(data);
+    if (data.gradeClass) classes.add(data.gradeClass);
+  });
+  $('classFilter').innerHTML = '<option value="">Barcha sinflar</option>' +
+    [...classes].sort().map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  renderTable();
+});
+
+</script>
+</body>
+</html>
