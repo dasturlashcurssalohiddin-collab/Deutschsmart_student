@@ -1,639 +1,287 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ustoz Jurnali (Kundalik.com) - Deutschsmart Student</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --primary: #1e3a8a;
-      --primary-hover: #172554;
-      --primary-light: #eff6ff;
-      --accent: #2563eb;
-      --success: #16a34a;
-      --success-bg: #dcfce7;
-      --danger: #dc2626;
-      --danger-bg: #fee2e2;
-      --warning: #d97706;
-      --warning-bg: #fef3c7;
-      --gray-50: #f8fafc;
-      --gray-100: #f1f5f9;
-      --gray-200: #e2e8f0;
-      --gray-300: #cbd5e1;
-      --gray-600: #475569;
-      --gray-700: #334155;
-      --gray-800: #1e293b;
-      --gray-900: #0f172a;
-      --white: #ffffff;
-      --radius: 10px;
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ustoz kabineti — Deutschsmart Student</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#1a1a1a;--primary-hover:#000;--primary-light:#f5eeda;
+  --accent:#c8102e;--accent-hover:#a50d26;--gold:#ffce00;--gold-dark:#d4a900;
+  --success:#15803d;--success-bg:#dcfce7;--danger:#c8102e;--danger-bg:#fde8e8;--warning:#a5760a;--warning-bg:#fff3d6;
+  --gray-50:#faf9f6;--gray-100:#f0eee8;--gray-200:#ddd9cf;--gray-300:#c1bbac;--gray-400:#928c7c;--gray-500:#6b6558;--gray-600:#4a453b;--gray-700:#332f28;--gray-800:#201d17;--gray-900:#121110;--white:#fff;
+  --radius:14px;--radius-sm:10px;--shadow-sm:0 1px 2px rgb(0 0 0/.08);--shadow:0 2px 10px rgb(0 0 0/.1);--shadow-lg:0 14px 34px rgb(0 0 0/.22);
+  --font-sans:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:var(--font-sans)}
+body{background:var(--gray-50);color:var(--gray-800);min-height:100vh;min-height:100dvh}
+button,input,select{font:inherit}
+.header{background:var(--primary);color:var(--white);padding:.7rem 1.25rem;padding-top:calc(.7rem + env(safe-area-inset-top,0px));display:flex;justify-content:space-between;align-items:center;gap:.75rem;position:sticky;top:0;z-index:50;border-bottom:3px solid var(--accent)}
+.brand{display:flex;align-items:center;gap:.7rem}
+.brand-badge{background:var(--gold);color:var(--gray-900);font-weight:800;padding:.35rem .6rem;border-radius:8px}
+.brand-text h1{font-size:1rem;font-weight:800}
+.brand-text span{font-size:.72rem;color:#c9c3b4;display:block}
+.user-badge{background:rgb(255 255 255/.1);padding:.35rem .8rem;border-radius:99px;font-size:.82rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:42px;padding:.55rem 1rem;font-weight:700;font-size:.9rem;border-radius:var(--radius-sm);border:1px solid transparent;cursor:pointer;background:var(--accent);color:#fff}
+.btn:hover{background:var(--accent-hover)}
+.btn-outline{background:transparent;color:#fff;border-color:rgb(255 255 255/.4)}
+.btn-outline:hover{background:rgb(255 255 255/.12)}
+.btn-sm{min-height:34px;padding:.3rem .7rem;font-size:.8rem}
+.wrap{max-width:1100px;margin:0 auto;padding:1.25rem}
+.crumbs{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:1rem;font-size:.85rem;color:var(--gray-600)}
+.crumbs button{background:none;border:none;color:var(--accent);font-weight:700;cursor:pointer;padding:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.85rem}
+.card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm);cursor:pointer;text-align:center;transition:transform .1s}
+.card:hover{transform:translateY(-2px);border-color:var(--accent)}
+.card .num{font-size:1.6rem;font-weight:800;color:var(--accent)}
+.card .lbl{font-size:.8rem;color:var(--gray-500);margin-top:.2rem}
+.list-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:1rem}
+.list-row{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1.1rem;border-bottom:1px solid var(--gray-100);gap:.75rem;flex-wrap:wrap}
+.list-row:last-child{border-bottom:none}
+.list-row h4{font-size:.95rem}
+.list-row .meta{font-size:.78rem;color:var(--gray-500)}
+select,input{padding:.55rem .7rem;border:1.5px solid var(--gray-300);border-radius:var(--radius-sm);min-height:40px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.85rem;margin-bottom:1.25rem}
+.stat{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow-sm);text-align:center}
+.stat .v{font-size:1.7rem;font-weight:800;color:var(--gray-900)}
+.stat .l{font-size:.75rem;color:var(--gray-500);margin-top:.2rem}
+.grade-chip{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;padding:0 6px;border-radius:8px;font-weight:800;background:var(--primary-light);border:1px solid var(--gold-dark)}
+.modal-bg{position:fixed;inset:0;background:rgb(0 0 0/.6);display:flex;align-items:center;justify-content:center;padding:1rem;z-index:100}
+.modal{background:#fff;border-radius:var(--radius);max-width:420px;width:100%;padding:1.5rem}
+.modal h3{margin-bottom:1rem}
+.modal label{display:block;font-size:.85rem;font-weight:700;margin-bottom:.3rem}
+.score-picks{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin-bottom:1rem}
+.score-picks button{padding:.6rem;border:1.5px solid var(--gray-300);border-radius:8px;background:#fff;font-weight:800;cursor:pointer}
+.score-picks button.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.empty{color:var(--gray-500);font-size:.88rem;padding:1.5rem;text-align:center}
+@media(max-width:480px){.wrap{padding:.85rem}.brand-text span,.user-badge{display:none}}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
-    body { background-color: var(--gray-50); color: var(--gray-800); min-height: 100vh; }
-
-    .header {
-      background: var(--white);
-      border-bottom: 1px solid var(--gray-200);
-      padding: 0.75rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--primary); }
-    .brand-badge {
-      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-      color: var(--white);
-      font-weight: 800;
-      font-size: 1.25rem;
-      padding: 0.4rem 0.75rem;
-      border-radius: 6px;
-    }
-    .brand-text h1 { font-size: 1.15rem; font-weight: 700; color: var(--gray-900); }
-    .brand-text span { font-size: 0.75rem; color: var(--gray-600); display: block; }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      border-radius: 6px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .btn-primary { background: var(--primary); color: var(--white); }
-    .btn-secondary { background: var(--white); border-color: var(--gray-300); color: var(--gray-700); }
-    .btn-secondary:hover { background: var(--gray-100); }
-
-    .container { max-width: 1350px; margin: 0 auto; padding: 1.5rem; }
-
-    /* Tabs */
-    .tabs {
-      display: flex;
-      gap: 0.5rem;
-      border-bottom: 2px solid var(--gray-200);
-      margin-bottom: 1.25rem;
-    }
-    .tab-btn {
-      background: transparent;
-      border: none;
-      padding: 0.75rem 1.25rem;
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--gray-600);
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -2px;
-    }
-    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
-
-    /* Toolbar */
-    .toolbar {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius);
-      padding: 1rem 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-      box-shadow: var(--shadow-sm);
-    }
-    .filters { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
-    .filter-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--gray-700); }
-    .form-select {
-      padding: 0.45rem 0.75rem;
-      font-size: 0.88rem;
-      border: 1px solid var(--gray-300);
-      border-radius: 6px;
-      outline: none;
-    }
-
-    /* Kundalik Table */
-    .journal-card {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-    }
-    .journal-header {
-      padding: 1rem 1.5rem;
-      border-bottom: 1px solid var(--gray-200);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #fafbfc;
-    }
-    .journal-header h3 { font-size: 1.1rem; color: var(--gray-900); }
-
-    .table-responsive { width: 100%; overflow-x: auto; }
-    .kundalik-table { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.85rem; }
-    .kundalik-table th, .kundalik-table td { border: 1px solid var(--gray-200); padding: 0.55rem 0.5rem; }
-    .kundalik-table th { background: #f8fafc; font-weight: 600; color: var(--gray-700); }
-    
-    .th-student { text-align: left; min-width: 190px; position: sticky; left: 0; background: #f8fafc; z-index: 10; }
-    .td-student { text-align: left; font-weight: 600; position: sticky; left: 0; background: var(--white); z-index: 10; border-right: 2px solid var(--gray-300); }
-
-    .date-header { min-width: 70px; }
-    .date-num { font-size: 0.95rem; font-weight: 700; color: var(--primary); }
-
-    .cell-box { display: flex; align-items: center; justify-content: center; gap: 4px; }
-    
-    /* Attendance Badges */
-    .att-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      font-size: 0.75rem;
-      font-weight: 700;
-      cursor: pointer;
-      user-select: none;
-      transition: transform 0.1s;
-    }
-    .att-badge:hover { transform: scale(1.15); }
-    .att-present { background: var(--success-bg); color: var(--success); border: 1px solid var(--success); }
-    .att-absent { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger); }
-    .att-sick { background: var(--warning-bg); color: var(--warning); border: 1px solid var(--warning); }
-    .att-none { background: var(--gray-100); color: var(--gray-500); border: 1px dashed var(--gray-300); }
-
-    /* Grade Badge */
-    .grade-box {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 26px;
-      height: 26px;
-      padding: 0 4px;
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.85rem;
-      background: #e0e7ff;
-      color: var(--primary);
-      border: 1px solid #c7d2fe;
-      cursor: pointer;
-    }
-    .grade-box.empty { background: transparent; border: 1px dashed var(--gray-300); color: var(--gray-400); }
-
-    /* Modal */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      z-index: 100;
-      backdrop-filter: blur(4px);
-    }
-    .modal-content {
-      background: var(--white);
-      border-radius: var(--radius);
-      width: 100%;
-      max-width: 420px;
-      padding: 1.5rem;
-      box-shadow: var(--shadow-lg);
-    }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-    .close-btn { background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-600); }
-    
-    .score-buttons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin: 0.5rem 0 1rem; }
-    .score-btn {
-      padding: 0.6rem;
-      border: 1px solid var(--gray-300);
-      background: var(--white);
-      font-weight: 700;
-      font-size: 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .score-btn.active { background: var(--primary); color: var(--white); border-color: var(--primary); }
-  </style>
+</style>
 </head>
 <body>
-
-  <!-- Top Header -->
-  <header class="header">
-    <div class="brand">
-      <div class="brand-badge">DS</div>
-      <div class="brand-text">
-        <h1>deutschsmart_student</h1>
-        <span>Ustoz Elektron Jurnali (Kundalik.com)</span>
-      </div>
-    </div>
-    <div style="display: flex; align-items: center; gap: 1rem;">
-      <span style="font-size: 0.85rem; font-weight: 600;">👨‍🏫 <span id="teacherNameDisplay">Shokir Aliyev</span></span>
-      <button class="btn btn-secondary" onclick="logout()">Chiqish</button>
-    </div>
-  </header>
-
-  <div class="container">
-
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab-btn active" id="tabJournalBtn" onclick="switchTab('journal')">
-        📖 Kundalik Jurnali (Davomat & Baho)
-      </button>
-      <button class="tab-btn" id="tabArchiveBtn" onclick="switchTab('archive')">
-        🗂 O'z Sinflarim Arxivi
-      </button>
-    </div>
-
-    <!-- 1. JURNAL BO'LIMI -->
-    <div id="tabJournalSection">
-      <div class="toolbar">
-        <div class="filters">
-          <div class="filter-item">
-            <label>Sinf:</label>
-            <select id="classFilter" class="form-select" onchange="changeFilters()">
-              <option value="7-G" selected>7-G sinf</option>
-              <option value="8-A">8-A sinf</option>
-            </select>
-          </div>
-
-          <div class="filter-item">
-            <label>Fan:</label>
-            <select id="subjectFilter" class="form-select" onchange="changeFilters()">
-              <option value="Nemis tili A1" selected>Nemis tili A1</option>
-              <option value="Nemis tili A2">Nemis tili A2</option>
-              <option value="Grammatika">Grammatika</option>
-            </select>
-          </div>
-        </div>
-
-        <div style="display: flex; gap: 0.75rem; font-size: 0.82rem; color: var(--gray-700);">
-          <span>🟢 <b>B</b> - Bor</span>
-          <span>🔴 <b>Y</b> - Yo'q</span>
-          <span>🟡 <b>K</b> - Kasal</span>
-        </div>
-      </div>
-
-      <div class="journal-card">
-        <div class="journal-header">
-          <div>
-            <h3 id="tableTitleDisplay">7-G Sinf — Nemis tili A1</h3>
-            <p style="font-size: 0.8rem; color: var(--gray-600); margin-top: 2px;">
-              Davomatni o'zgartirish uchun katakni bosing. Baho qo'yish uchun baho katagini bosing.
-            </p>
-          </div>
-          <span style="font-size: 0.8rem; background: #e0f2fe; color: #0284c7; padding: 4px 10px; border-radius: 20px; font-weight: 600;">
-            Kundalik.com Tizimi
-          </span>
-        </div>
-
-        <div class="table-responsive">
-          <table class="kundalik-table">
-            <thead>
-              <tr id="tableHeaderRow">
-                <!-- JS generatsiya qiladi -->
-              </tr>
-            </thead>
-            <tbody id="tableBody">
-              <!-- JS generatsiya qiladi -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. O'Z SINFLARIM ARXIVI BO'LIMI -->
-    <div id="tabArchiveSection" style="display: none;">
-      <div class="journal-card" style="padding: 1.5rem;">
-        <h3 style="margin-bottom: 0.5rem;">Ustozning Sinflar Arxivi</h3>
-        <p style="font-size: 0.85rem; color: var(--gray-600); margin-bottom: 1.25rem;">
-          Yangi ro'yxatdan o'tgan o'quvchilar va ularning ota-onasi ma'lumotlari avtomatik shu yerda aks etadi:
-        </p>
-
-        <div id="archiveContent">
-          <!-- JS to'ldiradi -->
-        </div>
-      </div>
-    </div>
-
+<header class="header">
+  <div class="brand"><span class="brand-badge">DS</span><div class="brand-text"><h1>deutschsmart_student</h1><span>Ustoz kabineti</span></div></div>
+  <div style="display:flex;align-items:center;gap:.6rem">
+    <span class="user-badge" id="teacherName">Ustoz</span>
+    <button class="btn btn-outline btn-sm" id="logoutBtn">Chiqish</button>
   </div>
+</header>
+<div class="wrap">
+  <div class="crumbs" id="crumbs"></div>
+  <div id="content"></div>
+</div>
 
-  <!-- Baho qo'yish Modali -->
-  <div id="gradeModal" class="modal-backdrop" style="display: none;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 id="mTitle">Baho qo'yish</h3>
-        <button type="button" class="close-btn" onclick="closeGradeModal()">&times;</button>
+<div id="gradeModal" class="modal-bg" style="display:none">
+  <div class="modal">
+    <h3>Baho qo'yish: <span id="gStudentName"></span></h3>
+    <form id="gradeForm">
+      <input type="hidden" id="gStudentUid">
+      <label for="gSubject">Fan</label>
+      <select id="gSubject" style="width:100%;margin-bottom:1rem"></select>
+      <label>Baho</label>
+      <div class="score-picks">
+        <button type="button" data-s="1">1</button>
+        <button type="button" data-s="2">2</button>
+        <button type="button" data-s="3">3</button>
+        <button type="button" data-s="4">4</button>
+        <button type="button" data-s="5" class="sel">5</button>
       </div>
-
-      <div style="background: var(--gray-50); padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem;">
-        <div><strong>O'quvchi:</strong> <span id="mStudentName">-</span></div>
-        <div><strong>Sana:</strong> <span id="mDate">-</span></div>
-        <div><strong>Fan:</strong> <span id="mSubject">-</span></div>
+      <label for="gComment">Izoh</label>
+      <input id="gComment" style="width:100%;margin-bottom:1rem" placeholder="Ixtiyoriy izoh">
+      <div style="display:flex;gap:.6rem">
+        <button type="button" id="closeGrade" class="btn btn-outline" style="background:#eee;color:#333;flex:1">Bekor qilish</button>
+        <button type="submit" class="btn" style="flex:1">Saqlash</button>
       </div>
-
-      <div style="margin-bottom: 1rem;">
-        <label style="font-size: 0.85rem; font-weight: 600;">Bahoni tanlang (1-5):</label>
-        <div class="score-buttons">
-          <button type="button" class="score-btn active" onclick="setScore(5)">5</button>
-          <button type="button" class="score-btn" onclick="setScore(4)">4</button>
-          <button type="button" class="score-btn" onclick="setScore(3)">3</button>
-          <button type="button" class="score-btn" onclick="setScore(2)">2</button>
-          <button type="button" class="score-btn" onclick="setScore(1)">1</button>
-        </div>
-        <input type="hidden" id="selectedScore" value="5">
-      </div>
-
-      <div style="margin-bottom: 1.25rem;">
-        <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Darsdagi izoh / Uy vazifasi:</label>
-        <textarea id="gradeComment" style="width: 100%; padding: 0.5rem; border: 1px solid var(--gray-300); border-radius: 6px; font-size: 0.85rem;" rows="2" placeholder="Sehr gut! Faol ishtirok"></textarea>
-      </div>
-
-      <button type="button" class="btn btn-primary" style="width: 100%;" onclick="saveGrade()">
-        Bahoni saqlash
-      </button>
-    </div>
+    </form>
   </div>
+</div>
 
-  <script>
-    const DB_KEY = 'deutschsmart_data';
-    function getDB() {
-      const d = localStorage.getItem(DB_KEY);
-      return d ? JSON.parse(d) : null;
-    }
-    function saveDB(d) {
-      localStorage.setItem(DB_KEY, JSON.stringify(d));
-    }
+<script type="module">
 
-    let dates = ['2026-09-01', '2026-09-04', '2026-09-08', '2026-09-11', '2026-09-15', '2026-09-18', '2026-09-22', '2026-09-25'];
-    let currentClass = '7-G';
-    let currentSubject = 'Nemis tili A1';
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, query, where, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    let activeModalStudentId = '';
-    let activeModalDate = '';
+const firebaseConfig = {
+  apiKey: "AIzaSyDRK-fkNzy-WLozoxrMePrNMVvmC98Xmpw",
+  authDomain: "deutschsmart-72eb9.firebaseapp.com",
+  projectId: "deutschsmart-72eb9",
+  appId: "1:768670952689:web:960e8c311bc04b97828d50"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const $ = id => document.getElementById(id);
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const sessionStr = localStorage.getItem('auth_session');
-      if (sessionStr) {
-        const session = JSON.parse(sessionStr);
-        if (session.fullName) document.getElementById('teacherNameDisplay').textContent = session.fullName;
-      }
-      renderJournal();
-      renderArchive();
+let me = null, myUid = null;
+let studentsByClass = {}; // { "7-B": [ {uid, fullName, ...} ] }
+let view = 'groups'; // groups -> classes -> students
+let currentGroup = null, currentClass = null;
+let pickScore = 5;
+let attDate = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+let attMap = {}; // { studentUid: 'present'|'absent'|'sick' }
+
+const ATT_LABEL = { present: 'B', absent: "Y", sick: 'K', none: '·' };
+const ATT_NEXT = { none: 'present', present: 'absent', absent: 'sick', sick: 'none' };
+const ATT_TITLE = { present: 'Bor', absent: "Yo'q", sick: 'Kasal', none: 'Belgilanmagan' };
+const attKey = (uid, date) => `${uid}_${date}`;
+
+async function loadAttendance(cls, date) {
+  attMap = {};
+  const list = studentsByClass[cls] || [];
+  await Promise.all(list.map(async s => {
+    const snap = await getDoc(doc(db, 'attendance', attKey(s.uid, date)));
+    if (snap.exists()) attMap[s.uid] = snap.data().status;
+  }));
+}
+
+function crumbs() {
+  const parts = [`<button onclick="window.__toGroups()">Barcha sinflar</button>`];
+  if (currentGroup) parts.push(`<span>›</span><button onclick="window.__toClasses('${currentGroup}')">${currentGroup}-sinflar</button>`);
+  if (currentClass) parts.push(`<span>›</span><span>${currentClass}</span>`);
+  $('crumbs').innerHTML = parts.join(' ');
+}
+
+function renderGroups() {
+  view = 'groups'; currentGroup = null; currentClass = null; crumbs();
+  const groups = {};
+  Object.keys(studentsByClass).forEach(cls => {
+    const g = (cls.match(/^\d+/) || ['?'])[0];
+    groups[g] = (groups[g] || 0) + studentsByClass[cls].length;
+  });
+  const keys = Object.keys(groups).sort((a,b)=>Number(a)-Number(b));
+  if (!keys.length) { $('content').innerHTML = '<div class="empty">Hali hech qanday sinf va o\'quvchi yo\'q.</div>'; return; }
+  $('content').innerHTML = `<div class="grid">${keys.map(g => `
+    <div class="card" onclick="window.__toClasses('${g}')">
+      <div class="num">${g}</div><div class="lbl">${g}-sinflar (${groups[g]} o'quvchi)</div>
+    </div>`).join('')}</div>`;
+}
+
+function renderClasses(g) {
+  view = 'classes'; currentGroup = g; currentClass = null; crumbs();
+  const classes = Object.keys(studentsByClass).filter(c => c.startsWith(g)).sort();
+  $('content').innerHTML = `<div class="grid">${classes.map(c => `
+    <div class="card" onclick="window.__toStudents('${c}')">
+      <div class="num">${c}</div><div class="lbl">${studentsByClass[c].length} o'quvchi</div>
+    </div>`).join('')}</div>`;
+}
+
+async function renderStudents(cls) {
+  view = 'students'; currentClass = cls; crumbs();
+  const list = studentsByClass[cls] || [];
+  if (!list.length) { $('content').innerHTML = '<div class="empty">Bu sinfda hali o\'quvchi yo\'q.</div>'; return; }
+  $('content').innerHTML = '<div class="empty">Yuklanmoqda...</div>';
+  await loadAttendance(cls, attDate);
+  $('content').innerHTML = `
+    <div class="list-card" style="padding:.85rem 1.1rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+      <label style="font-size:.85rem;font-weight:700">Sana:</label>
+      <input type="date" id="attDateInput" value="${attDate}" style="min-height:38px">
+      <span style="font-size:.78rem;color:var(--gray-500)">Belgini bosing: · → B → Y → K → ·</span>
+    </div>
+    <div class="list-card">${list.map(s => `
+    <div class="list-row">
+      <div><h4>${esc(s.fullName)}</h4><div class="meta">Ota-onasi: ${esc(s.parentName||'-')} · Tel: ${esc(s.parentPhone||'-')}</div></div>
+      <div style="display:flex;align-items:center;gap:.6rem">
+        <button class="grade-chip" style="cursor:pointer;border:none" title="${ATT_TITLE[attMap[s.uid]||'none']}" onclick="window.__toggleAtt('${s.uid}','${esc(s.fullName)}')" id="att_${s.uid}">${ATT_LABEL[attMap[s.uid]||'none']}</button>
+        <button class="btn btn-sm" onclick="window.__openGrade('${s.uid}','${esc(s.fullName)}')">Baho qo'yish</button>
+      </div>
+    </div>`).join('')}</div>`;
+  $('attDateInput').addEventListener('change', async (e) => {
+    attDate = e.target.value;
+    await renderStudents(cls);
+  });
+}
+
+window.__toggleAtt = async (uid, name) => {
+  const current = attMap[uid] || 'none';
+  const next = ATT_NEXT[current];
+  const ref = doc(db, 'attendance', attKey(uid, attDate));
+  if (next === 'none') {
+    await deleteDoc(ref);
+    delete attMap[uid];
+  } else {
+    await setDoc(ref, {
+      studentUid: uid, studentName: name, gradeClass: currentClass, date: attDate,
+      status: next, teacherUid: myUid, createdAt: serverTimestamp()
     });
+    attMap[uid] = next;
+  }
+  const btn = $('att_' + uid);
+  btn.textContent = ATT_LABEL[next];
+  btn.title = ATT_TITLE[next];
+};
 
-    function changeFilters() {
-      currentClass = document.getElementById('classFilter').value;
-      currentSubject = document.getElementById('subjectFilter').value;
-      renderJournal();
-    }
+function esc(s){ return String(s||'').replace(/'/g,"&#39;").replace(/</g,'&lt;'); }
 
-    function renderJournal() {
-      document.getElementById('tableTitleDisplay').textContent = `${currentClass} Sinf — ${currentSubject}`;
-      const db = getDB();
-      if (!db) return;
+window.__toGroups = renderGroups;
+window.__toClasses = renderClasses;
+window.__toStudents = renderStudents;
 
-      const headerRow = document.getElementById('tableHeaderRow');
-      let hHtml = `
-        <th style="width: 40px;">№</th>
-        <th class="th-student">O'quvchi F.I.SH</th>
-      `;
-      dates.forEach(d => {
-        const day = d.split('-')[2];
-        const m = d.split('-')[1];
-        hHtml += `
-          <th class="date-header">
-            <div class="date-num">${day}</div>
-            <div style="font-size: 0.68rem; color: var(--gray-600);">${m}-oy</div>
-          </th>
-        `;
-      });
-      headerRow.innerHTML = hHtml;
+window.__openGrade = (uid, name) => {
+  $('gStudentUid').value = uid;
+  $('gStudentName').textContent = name;
+  const subjOpts = (me.subjects||[]).map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+  $('gSubject').innerHTML = subjOpts || '<option value="">Fan tanlanmagan</option>';
+  pickScore = 5;
+  document.querySelectorAll('.score-picks button').forEach(b => b.classList.toggle('sel', Number(b.dataset.s)===5));
+  $('gComment').value = '';
+  $('gradeModal').style.display = 'flex';
+};
+$('closeGrade').addEventListener('click', () => $('gradeModal').style.display = 'none');
+document.querySelectorAll('.score-picks button').forEach(b => b.addEventListener('click', () => {
+  pickScore = Number(b.dataset.s);
+  document.querySelectorAll('.score-picks button').forEach(x => x.classList.remove('sel'));
+  b.classList.add('sel');
+}));
 
-      // O'quvchilar
-      const students = (db.students || []).filter(s => s.gradeClass === currentClass && s.isActive !== false);
-      const tbody = document.getElementById('tableBody');
+$('gradeForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const studentUid = $('gStudentUid').value, subject = $('gSubject').value, comment = $('gComment').value.trim();
+  if (!subject) { alert("Fan tanlanmagan. Avval ro'yxatdan o'tishda fan tanlagan bo'lishingiz kerak."); return; }
+  await addDoc(collection(db, 'grades'), {
+    studentUid, studentName: $('gStudentName').textContent, gradeClass: currentClass,
+    subject, score: pickScore, comment, teacherUid: myUid, teacherName: me.fullName,
+    createdAt: serverTimestamp()
+  });
+  await recomputeStats(studentUid);
+  $('gradeModal').style.display = 'none';
+});
 
-      if (students.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="${dates.length + 2}" style="padding: 2rem; color: var(--gray-600);">Ushbu sinfda hozircha o'quvchilar yo'q.</td></tr>`;
-        return;
-      }
+async function recomputeStats(studentUid) {
+  const q = query(collection(db, 'grades'), where('studentUid', '==', studentUid));
+  const snap = await getDocs(q);
+  let sum = 0, count = 0, name = '', cls = '';
+  snap.forEach(d => { sum += d.data().score; count++; name = d.data().studentName; cls = d.data().gradeClass; });
+  await setDoc(doc(db, 'student_stats', studentUid), {
+    fullName: name, gradeClass: cls, avgScore: count ? sum / count : 0, gradesCount: count, updatedAt: serverTimestamp()
+  });
+}
 
-      let bHtml = '';
-      students.forEach((st, idx) => {
-        bHtml += `
-          <tr>
-            <td>${idx + 1}</td>
-            <td class="td-student">
-              <div>${st.fullName}</div>
-              <div style="font-size: 0.72rem; color: var(--gray-600); font-weight: normal;">Tel: ${st.studentPhone}</div>
-            </td>
-        `;
+$('logoutBtn').addEventListener('click', () => signOut(auth).then(() => location.href = 'index.html'));
 
-        dates.forEach(d => {
-          const attKey = `${st.id}_${d}`;
-          const att = db.attendance ? db.attendance[attKey] : null;
+onAuthStateChanged(auth, async (user) => {
+  if (!user) { location.href = 'index.html'; return; }
+  myUid = user.uid;
+  const snap = await getDoc(doc(db, 'users', myUid));
+  if (!snap.exists()) { location.href = 'index.html'; return; }
+  me = snap.data();
+  if (me.isActive === false) { await signOut(auth); location.href = 'index.html'; return; }
+  if (me.role !== 'teacher') { location.href = 'student.html'; return; }
 
-          const grKey = `${st.id}_${currentSubject}_${d}`;
-          const gr = db.grades ? db.grades[grKey] : null;
+  $('teacherName').textContent = me.fullName;
 
-          // Davomat badge
-          let attHtml = '';
-          if (att === 'present') {
-            attHtml = `<span class="att-badge att-present" title="Bor" onclick="cycleAtt('${st.id}', '${d}', 'present')">B</span>`;
-          } else if (att === 'absent') {
-            attHtml = `<span class="att-badge att-absent" title="Yo'q" onclick="cycleAtt('${st.id}', '${d}', 'absent')">Y</span>`;
-          } else if (att === 'sick') {
-            attHtml = `<span class="att-badge att-sick" title="Kasal" onclick="cycleAtt('${st.id}', '${d}', 'sick')">K</span>`;
-          } else {
-            attHtml = `<span class="att-badge att-none" title="Belgilash" onclick="cycleAtt('${st.id}', '${d}', 'none')">·</span>`;
-          }
+  const q = query(collection(db, 'users'), where('role', '==', 'student'));
+  const usnap = await getDocs(q);
+  studentsByClass = {};
+  usnap.forEach(d => {
+    const s = d.data(); if (s.isActive === false) return;
+    const cls = s.gradeClass || "Noma'lum";
+    (studentsByClass[cls] = studentsByClass[cls] || []).push({ uid: d.id, ...s });
+  });
+  renderGroups();
+});
 
-          // Baho box
-          let grHtml = '';
-          if (gr && gr.score) {
-            grHtml = `<span class="grade-box" title="${gr.comment || 'Baho'}" onclick="openGrade('${st.id}', '${escapeQuotes(st.fullName)}', '${d}', ${gr.score}, '${escapeQuotes(gr.comment || '')}')">${gr.score}</span>`;
-          } else {
-            grHtml = `<span class="grade-box empty" onclick="openGrade('${st.id}', '${escapeQuotes(st.fullName)}', '${d}')">+</span>`;
-          }
-
-          bHtml += `
-            <td>
-              <div class="cell-box">
-                ${attHtml}
-                ${grHtml}
-              </div>
-            </td>
-          `;
-        });
-
-        bHtml += `</tr>`;
-      });
-      tbody.innerHTML = bHtml;
-    }
-
-    function cycleAtt(studentId, date, current) {
-      let next = 'present';
-      if (current === 'present') next = 'absent';
-      else if (current === 'absent') next = 'sick';
-      else if (current === 'sick') next = null;
-
-      const db = getDB();
-      const key = `${studentId}_${date}`;
-      if (!db.attendance) db.attendance = {};
-
-      if (next) {
-        db.attendance[key] = next;
-      } else {
-        delete db.attendance[key];
-      }
-      saveDB(db);
-      renderJournal();
-    }
-
-    function openGrade(studentId, name, date, existingScore = 5, existingComment = '') {
-      activeModalStudentId = studentId;
-      activeModalDate = date;
-
-      document.getElementById('mStudentName').textContent = name;
-      document.getElementById('mDate').textContent = date;
-      document.getElementById('mSubject').textContent = currentSubject;
-      document.getElementById('gradeComment').value = existingComment;
-
-      setScore(existingScore);
-      document.getElementById('gradeModal').style.display = 'flex';
-    }
-
-    function closeGradeModal() {
-      document.getElementById('gradeModal').style.display = 'none';
-    }
-
-    function setScore(score) {
-      document.getElementById('selectedScore').value = score;
-      const btns = document.querySelectorAll('.score-btn');
-      btns.forEach(b => {
-        if (parseInt(b.textContent.trim(), 10) === score) {
-          b.classList.add('active');
-        } else {
-          b.classList.remove('active');
-        }
-      });
-    }
-
-    function saveGrade() {
-      const score = parseInt(document.getElementById('selectedScore').value, 10);
-      const comment = document.getElementById('gradeComment').value;
-
-      const db = getDB();
-      if (!db.grades) db.grades = {};
-
-      const key = `${activeModalStudentId}_${currentSubject}_${activeModalDate}`;
-      db.grades[key] = { score, comment };
-      saveDB(db);
-
-      // Firestore ga yangi bahoni sinxronizatsiya qilish (Telegram Bot uchun)
-      try {
-        const student = (db.students || []).find(s => s.id === activeModalStudentId);
-        if (student) {
-          fetch(`https://firestore.googleapis.com/v1/projects/deutschsmart-72eb9/databases/(default)/documents/students/${activeModalStudentId}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              fields: {
-                fullName: { stringValue: student.fullName },
-                gradeClass: { stringValue: student.gradeClass },
-                gradesSummary: { stringValue: `• ${currentSubject}: ${score} (${comment || 'A\'lo'})` }
-              }
-            })
-          }).catch(e => {});
-        }
-      } catch(e) {}
-
-      closeGradeModal();
-      renderJournal();
-    }
-
-    function renderArchive() {
-      const db = getDB();
-      if (!db) return;
-      const container = document.getElementById('archiveContent');
-
-      const students = db.students || [];
-      const classes = ['7-G', '8-A'];
-
-      let html = '';
-      classes.forEach(cls => {
-        const clsStudents = students.filter(s => s.gradeClass === cls);
-        html += `
-          <div style="margin-bottom: 1.5rem; border: 1px solid var(--gray-200); border-radius: 8px; padding: 1rem;">
-            <h4 style="color: var(--primary); margin-bottom: 0.75rem;">🏫 ${cls} Sinf O'quvchilari (${clsStudents.length} ta)</h4>
-        `;
-
-        if (clsStudents.length === 0) {
-          html += `<p style="font-size: 0.85rem; color: var(--gray-600);">Hali hech qanday o'quvchi yozilmagan.</p>`;
-        } else {
-          clsStudents.forEach((st, idx) => {
-            html += `
-              <div style="background: var(--gray-50); border-radius: 6px; padding: 0.75rem; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                  <strong>${idx + 1}. ${st.fullName}</strong> (${st.birthDate})
-                  <div style="font-size: 0.8rem; color: var(--gray-600); margin-top: 2px;">
-                    👨‍👩‍👧 Ota-onasi: <strong>${st.parentName || 'Kiritilmagan'}</strong> | 
-                    📞 Ota-ona tel: <strong>${st.parentPhone}</strong> | 
-                    📱 O'quvchi tel: <strong>${st.studentPhone}</strong>
-                  </div>
-                </div>
-                <span style="font-size: 0.75rem; background: #dcfce7; color: #15803d; padding: 3px 8px; border-radius: 4px; font-weight: 700;">
-                  Faol
-                </span>
-              </div>
-            `;
-          });
-        }
-
-        html += `</div>`;
-      });
-
-      container.innerHTML = html;
-    }
-
-    function switchTab(tab) {
-      const jBtn = document.getElementById('tabJournalBtn');
-      const aBtn = document.getElementById('tabArchiveBtn');
-      const jSec = document.getElementById('tabJournalSection');
-      const aSec = document.getElementById('tabArchiveSection');
-
-      if (tab === 'journal') {
-        jBtn.classList.add('active');
-        aBtn.classList.remove('active');
-        jSec.style.display = 'block';
-        aSec.style.display = 'none';
-      } else {
-        aBtn.classList.add('active');
-        jBtn.classList.remove('active');
-        aSec.style.display = 'block';
-        jSec.style.display = 'none';
-        renderArchive();
-      }
-    }
-
-    function logout() {
-      localStorage.removeItem('auth_session');
-      window.location.href = 'index.html';
-    }
-
-    function escapeQuotes(str) {
-      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-    }
-  </script>
+</script>
 </body>
 </html>
