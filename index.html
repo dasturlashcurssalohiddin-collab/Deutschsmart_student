@@ -228,12 +228,11 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// Firebase Console -> Project settings -> Your apps -> Web app -> "firebaseConfig" dan nusxa oling
 const firebaseConfig = {
-  apiKey: "BU_YERGA_APIKEY",
+  apiKey: "AIzaSyDRK-fkNzy-WLozoxrMePrNMVvmC98Xmpw",
   authDomain: "deutschsmart-72eb9.firebaseapp.com",
   projectId: "deutschsmart-72eb9",
-  appId: "BU_YERGA_APPID"
+  appId: "1:768670952689:web:960e8c311bc04b97828d50"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -256,6 +255,7 @@ function fmtDate(v) {
   return [d.slice(0, 2), d.slice(2, 4), d.slice(4, 8)].filter(Boolean).join('.');
 }
 $('phone').addEventListener('input', e => e.target.value = fmtPhone(e.target.value));
+$('phoneGoogle').addEventListener('input', e => e.target.value = fmtPhone(e.target.value));
 $('parentPhone').addEventListener('input', e => e.target.value = fmtPhone(e.target.value));
 $('birth').addEventListener('input', e => e.target.value = fmtDate(e.target.value));
 
